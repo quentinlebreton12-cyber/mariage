@@ -3,582 +3,682 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plan de table — Notre Mariage</title>
+<title>Plan de table — Mariage</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --cream: #FAF7F2;
-  --warm: #F2EBE0;
-  --gold: #C9A96E;
-  --gold-light: #E8D5B0;
-  --gold-dark: #8B6914;
-  --green: #4A5E4A;
-  --green-light: #E8EDE8;
-  --ink: #2C2A25;
-  --muted: #8A8070;
+  --cream: #FAF8F4;
+  --warm: #EDE5D8;
+  --gold: #C8A96A;
+  --gold-d: #8B6A1F;
+  --gold-l: #EDD9A3;
+  --ink: #28251E;
+  --ink2: #5A5448;
+  --ink3: #9A9080;
   --white: #FFFFFF;
-  --danger: #C0392B;
-  --danger-light: #FDECEA;
-  --shadow: 0 2px 20px rgba(44,42,37,0.08);
-  --shadow-lg: 0 8px 40px rgba(44,42,37,0.14);
+  --green: #2D6A4F;
+  --green-l: #D8F0E4;
+  --green-b: #5DCAA5;
+  --red: #B83232;
+  --red-l: #FDEAEA;
+  --red-b: #F09595;
+  --blue-l: #EAF2FC;
+  --blue: #2563A8;
+  --shadow: 0 2px 16px rgba(40,37,30,.08);
+  --shadow-lg: 0 8px 40px rgba(40,37,30,.14);
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--ink); min-height: 100vh; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); display: flex; flex-direction: column; }
 
-/* ─── HEADER ─── */
+/* ── HEADER ── */
 header {
+  height: 52px; flex-shrink: 0;
   background: var(--ink);
-  color: var(--cream);
-  padding: 18px 24px;
-  display: flex; align-items: center; justify-content: space-between;
-  position: sticky; top: 0; z-index: 100;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  display: flex; align-items: center; gap: 10px; padding: 0 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.3);
+  z-index: 20;
 }
-header h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 22px; letter-spacing: 0.04em; }
-header h1 span { color: var(--gold); font-style: italic; }
-.header-stats { display: flex; gap: 20px; font-size: 12px; font-weight: 300; color: var(--gold-light); letter-spacing: 0.06em; }
-.header-stats strong { color: var(--gold); font-weight: 500; font-size: 15px; display: block; }
+.logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; color: var(--cream); letter-spacing: .04em; }
+.logo em { color: var(--gold); font-style: italic; }
+.hsep { width: 1px; height: 22px; background: rgba(255,255,255,.12); margin: 0 4px; flex-shrink: 0; }
+.hstat { font-size: 11px; color: rgba(255,255,255,.45); line-height: 1.25; }
+.hstat strong { font-size: 14px; font-weight: 500; color: var(--gold-l); display: block; }
+.spacer { flex: 1; }
+.npill { font-size: 11px; padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.55); background: rgba(255,255,255,.06); white-space: nowrap; }
+.npill.ok  { border-color: var(--green-b); color: var(--green-b); background: rgba(93,202,165,.1); }
+.npill.busy{ border-color: #85B7EB; color: #85B7EB; background: rgba(133,183,235,.1); }
+.npill.err { border-color: var(--red-b); color: var(--red-b); background: rgba(240,149,149,.1); }
 
-/* ─── LAYOUT ─── */
-.layout { display: grid; grid-template-columns: 300px 1fr; min-height: calc(100vh - 64px); }
-@media (max-width: 768px) {
-  .layout { grid-template-columns: 1fr; }
-  .sidebar { position: fixed; bottom: 0; left: 0; right: 0; max-height: 50vh; border-top: 1px solid var(--gold-light); border-radius: 16px 16px 0 0; z-index: 50; overflow-y: auto; }
-  .canvas-area { padding-bottom: 52vh; }
-  header h1 { font-size: 17px; }
-  .header-stats { display: none; }
+/* ── TOOLBAR ── */
+.toolbar {
+  flex-shrink: 0; background: var(--white);
+  border-bottom: 1px solid var(--warm);
+  padding: 7px 14px; display: flex; align-items: center; gap: 7px; flex-wrap: wrap;
+  z-index: 10;
 }
+.tlabel { font-size: 11px; color: var(--ink3); font-weight: 500; letter-spacing: .05em; text-transform: uppercase; flex-shrink: 0; }
+.tbtn {
+  font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 400;
+  padding: 5px 12px; border-radius: 7px; cursor: pointer; border: 1px solid var(--warm);
+  background: var(--white); color: var(--ink); transition: all .15s; white-space: nowrap;
+}
+.tbtn:hover { background: var(--warm); border-color: var(--gold-l); }
+.tbtn:disabled { opacity: .4; cursor: default; }
+.tbtn.gold { background: var(--gold); color: var(--ink); border-color: var(--gold); font-weight: 500; }
+.tbtn.gold:hover { background: var(--gold-d); color: #fff; }
+.tbtn.save { background: var(--green); color: #fff; border-color: var(--green); }
+.tbtn.save:hover { background: #1A4D39; }
+.tbtn.load { background: var(--blue-l); color: var(--blue); border-color: #B5D4F4; }
+.tbtn.load:hover { background: #D0E8F8; }
+.tsep { width: 1px; height: 20px; background: var(--warm); margin: 0 2px; flex-shrink: 0; }
+.tstats { margin-left: auto; font-size: 12px; color: var(--ink3); display: flex; gap: 14px; }
+.tstats strong { color: var(--ink); font-weight: 500; }
 
-/* ─── SIDEBAR ─── */
+/* ── LAYOUT ── */
+.layout { flex: 1; display: flex; min-height: 0; overflow: hidden; }
+
+/* ── SIDEBAR ── */
 .sidebar {
-  background: var(--white);
-  border-right: 1px solid var(--gold-light);
-  display: flex; flex-direction: column;
+  width: 240px; flex-shrink: 0;
+  background: var(--white); border-right: 1px solid var(--warm);
+  display: flex; flex-direction: column; overflow: hidden;
 }
-.sb-block { padding: 18px 16px; border-bottom: 1px solid var(--warm); }
-.sb-block h2 { font-family: 'Cormorant Garamond', serif; font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 12px; }
-.input-group { display: flex; gap: 6px; }
-.input-group input { flex: 1; border: 1px solid var(--gold-light); background: var(--cream); border-radius: 6px; padding: 8px 12px; font-family: 'Jost', sans-serif; font-size: 13px; color: var(--ink); outline: none; transition: border-color 0.2s; }
-.input-group input:focus { border-color: var(--gold); }
-.btn { background: var(--ink); color: var(--cream); border: none; border-radius: 6px; padding: 8px 14px; font-family: 'Jost', sans-serif; font-size: 13px; cursor: pointer; transition: background 0.2s, transform 0.1s; white-space: nowrap; }
-.btn:hover { background: var(--gold-dark); }
-.btn:active { transform: scale(0.97); }
-.btn-outline { background: transparent; color: var(--ink); border: 1px solid var(--gold-light); }
-.btn-outline:hover { background: var(--warm); }
-.btn-danger { background: var(--danger); }
-.btn-danger:hover { background: #a93226; }
-.btn-sm { padding: 4px 10px; font-size: 11px; }
-.btn-gold { background: var(--gold); color: var(--ink); }
-.btn-gold:hover { background: var(--gold-dark); color: var(--cream); }
-
-/* contraintes */
-.constraint-row { display: flex; gap: 5px; }
-.constraint-row select { flex: 1; border: 1px solid var(--gold-light); background: var(--cream); border-radius: 6px; padding: 7px 8px; font-size: 12px; font-family: 'Jost', sans-serif; color: var(--ink); }
-.constraint-list { margin-top: 8px; display: flex; flex-direction: column; gap: 4px; max-height: 110px; overflow-y: auto; }
-.constraint-tag { display: flex; align-items: center; gap: 6px; background: #FFF5F5; border: 1px solid #F5C6C2; border-radius: 6px; padding: 4px 8px; font-size: 11px; }
-.constraint-tag span { flex: 1; color: var(--danger); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.constraint-tag button { background: none; border: none; cursor: pointer; color: var(--danger); font-size: 14px; line-height: 1; padding: 0 2px; }
-
-/* pool convives */
-.guest-pool { flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-wrap: wrap; gap: 5px; align-content: flex-start; min-height: 60px; }
+.sb-sec { padding: 14px; border-bottom: 1px solid var(--warm); }
+.sb-sec h3 {
+  font-family: 'Cormorant Garamond', serif; font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .1em; color: var(--gold-d); margin-bottom: 9px;
+}
+.add-row { display: flex; gap: 6px; }
+.add-row input {
+  flex: 1; font-family: 'DM Sans', sans-serif; font-size: 13px;
+  padding: 7px 10px; border: 1px solid var(--warm); border-radius: 7px;
+  background: var(--cream); color: var(--ink); outline: none; transition: border-color .2s; min-width: 0;
+}
+.add-row input:focus { border-color: var(--gold); }
+.add-row .addbtn {
+  background: var(--ink); color: var(--cream); border: 1px solid var(--ink);
+  border-radius: 7px; padding: 7px 13px; font-size: 18px; line-height: 1; cursor: pointer; transition: background .15s;
+}
+.add-row .addbtn:hover { background: var(--gold-d); border-color: var(--gold-d); }
+.pool-hd {
+  padding: 9px 14px 6px; font-size: 11px; font-weight: 500;
+  color: var(--ink3); text-transform: uppercase; letter-spacing: .07em;
+  border-bottom: 1px solid var(--warm); flex-shrink: 0;
+}
+.conf-alert { padding: 7px 12px; background: var(--red-l); border-bottom: 1px solid #F5C6C2; font-size: 11px; color: var(--red); display: none; flex-shrink: 0; }
+.hint { padding: 8px 12px; background: var(--blue-l); border-bottom: 1px solid #B5D4F4; font-size: 11px; color: var(--blue); flex-shrink: 0; }
+.pool { flex: 1; overflow-y: auto; padding: 8px; display: flex; flex-wrap: wrap; gap: 5px; align-content: flex-start; }
 .chip {
-  background: var(--cream); border: 1px solid var(--gold-light);
-  border-radius: 20px; padding: 4px 10px; font-size: 12px;
-  cursor: grab; user-select: none; display: flex; align-items: center; gap: 5px;
-  transition: all 0.15s; white-space: nowrap;
+  background: var(--cream); border: 1px solid var(--warm); border-radius: 20px;
+  padding: 4px 10px; font-size: 12px; display: flex; align-items: center; gap: 5px;
+  cursor: grab; user-select: none; transition: all .15s; white-space: nowrap;
 }
 .chip:hover { border-color: var(--gold); background: var(--warm); }
-.chip.placed { opacity: 0.35; cursor: default; }
-.chip .chip-del { cursor: pointer; color: var(--muted); font-size: 15px; line-height: 1; padding: 0 1px; }
-.chip .chip-del:hover { color: var(--danger); }
-.chip.dragging { opacity: 0.5; }
+.chip.placed { opacity: .28; pointer-events: none; }
+.chip.dragging { opacity: .45; cursor: grabbing; }
+.chip .cx { cursor: pointer; color: var(--ink3); font-size: 14px; line-height: 1; }
+.chip .cx:hover { color: var(--red); }
 
-/* ─── CANVAS ─── */
-.canvas-area { padding: 24px; overflow: auto; }
-.canvas-area h2 { font-family: 'Cormorant Garamond', serif; font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
-.tables-grid { display: flex; flex-wrap: wrap; gap: 16px; }
+/* ── CANVAS ── */
+.canvas-wrap {
+  flex: 1; overflow: auto; position: relative;
+  background-color: var(--cream);
+  background-image: radial-gradient(circle, rgba(200,169,106,.2) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+#canvas { position: relative; width: 2000px; height: 1200px; }
 
-/* ─── TABLE CARD ─── */
-.table-card {
+/* ── TABLE GROUP ── */
+.tg { position: absolute; }
+
+/* ── TABLE BODY ── */
+.tbody {
+  position: absolute;
+  border: 2px solid var(--warm);
   background: var(--white);
-  border: 1.5px solid var(--gold-light);
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  cursor: move; z-index: 2; box-shadow: var(--shadow);
+  transition: border-color .2s, box-shadow .2s;
+  /* prevent text selection while dragging */
+  user-select: none;
+}
+.tbody.oval { border-radius: 50%; }
+.tbody.rect { border-radius: 14px; }
+.tbody.dragover { border-color: var(--green) !important; box-shadow: 0 0 0 4px rgba(45,106,79,.15); }
+.tname {
+  font-family: 'Cormorant Garamond', serif; font-size: 13px; font-weight: 600;
+  color: var(--ink); text-align: center; padding: 2px 10px; pointer-events: none;
+  max-width: 90%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.tcap { font-size: 10px; color: var(--ink3); pointer-events: none; }
+.tprog { position: absolute; bottom: 7px; left: 50%; transform: translateX(-50%); width: 36px; height: 3px; background: var(--warm); border-radius: 2px; overflow: hidden; pointer-events: none; }
+.tprog-fill { height: 100%; border-radius: 2px; transition: width .3s; background: var(--gold); }
+.tprog-fill.full { background: var(--green); }
+.tdel {
+  position: absolute; top: -10px; right: -10px; width: 22px; height: 22px;
+  background: var(--red-l); border: 1px solid var(--red-b); color: var(--red);
+  border-radius: 50%; font-size: 15px; line-height: 1; padding: 0;
+  display: none; align-items: center; justify-content: center; cursor: pointer; z-index: 10;
+}
+.tg:hover .tdel { display: flex; }
+
+/* ── SEAT ── */
+.seat { position: absolute; z-index: 3; display: flex; align-items: center; justify-content: center; }
+.slabel {
+  font-size: 11px;
+  background: var(--cream);
+  border: 1px solid var(--warm);
   border-radius: 14px;
-  padding: 14px;
-  width: 220px;
-  flex-shrink: 0;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  box-shadow: var(--shadow);
+  padding: 3px 10px;
+  white-space: nowrap;
+  /* wider labels so names are not cut off */
+  max-width: 110px;
+  min-width: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all .15s;
+  cursor: default;
+  text-align: center;
+  line-height: 1.4;
+  box-shadow: 0 1px 4px rgba(40,37,30,.06);
 }
-.table-card.dragover { border-color: var(--green); background: var(--green-light); box-shadow: var(--shadow-lg); }
-.table-card.full { border-color: var(--gold); }
-.table-card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
-.table-icon { width: 32px; height: 32px; border: 1.5px solid var(--gold-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--muted); flex-shrink: 0; }
-.table-icon.rect { border-radius: 6px; }
-.table-name { flex: 1; font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 600; color: var(--ink); cursor: text; }
-.table-name[contenteditable]:focus { outline: none; border-bottom: 1px solid var(--gold); }
-.table-meta { font-size: 11px; color: var(--muted); }
-.progress-bar { height: 3px; background: var(--warm); border-radius: 2px; margin-bottom: 10px; overflow: hidden; }
-.progress-fill { height: 100%; background: var(--gold); border-radius: 2px; transition: width 0.3s; }
-.progress-fill.full { background: var(--green); }
-.table-seats { display: flex; flex-wrap: wrap; gap: 4px; min-height: 28px; }
-.seat-chip {
-  background: var(--cream); border: 1px solid var(--gold-light);
-  border-radius: 14px; padding: 3px 9px; font-size: 11px;
-  cursor: pointer; display: flex; align-items: center; gap: 4px; transition: all 0.15s;
-}
-.seat-chip:hover { background: var(--danger-light); border-color: var(--danger); color: var(--danger); }
-.seat-chip.conflict { background: var(--danger-light); border-color: var(--danger); color: var(--danger); }
-.seat-chip .seat-x { font-size: 13px; opacity: 0; transition: opacity 0.15s; }
-.seat-chip:hover .seat-x { opacity: 1; }
-.empty-slot {
-  border: 1px dashed var(--gold-light); border-radius: 14px;
-  padding: 3px 9px; font-size: 11px; color: var(--muted);
-  font-style: italic;
-}
-.table-actions { display: flex; justify-content: flex-end; margin-top: 10px; }
+.slabel.empty { border-style: dashed; color: var(--ink3); font-style: italic; font-size: 10px; }
+.slabel.occ { font-weight: 500; color: var(--ink); }
+.slabel.occ:hover { background: var(--red-l); border-color: var(--red-b); color: var(--red); cursor: pointer; }
+.slabel.conflict { background: var(--red-l); border-color: var(--red-b); color: var(--red); }
+.slabel.dov { background: var(--green-l); border-color: var(--green-b); border-style: solid; }
 
-/* ─── TOOLBAR ─── */
-.toolbar {
-  background: var(--white); border-bottom: 1px solid var(--warm);
-  padding: 10px 24px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
-  position: sticky; top: 64px; z-index: 40;
-}
-.toolbar-label { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-right: 4px; }
-.sep { width: 1px; background: var(--warm); height: 24px; margin: 0 4px; }
-
-/* ─── MODAL ─── */
-.overlay { position: fixed; inset: 0; background: rgba(44,42,37,0.5); z-index: 200; display: none; align-items: center; justify-content: center; backdrop-filter: blur(2px); }
+/* ── MODAL ── */
+.overlay { position: fixed; inset: 0; background: rgba(40,37,30,.4); z-index: 100; display: none; align-items: center; justify-content: center; backdrop-filter: blur(3px); }
 .overlay.open { display: flex; }
-.modal { background: var(--white); border-radius: 16px; padding: 28px; max-width: 480px; width: 90%; box-shadow: var(--shadow-lg); }
-.modal h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; margin-bottom: 16px; }
-.modal pre { background: var(--cream); border: 1px solid var(--warm); border-radius: 8px; padding: 14px; font-size: 12px; white-space: pre-wrap; max-height: 50vh; overflow-y: auto; font-family: monospace; color: var(--ink); }
-.modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
+.modal { background: var(--white); border-radius: 16px; padding: 26px; max-width: 460px; width: 92%; box-shadow: var(--shadow-lg); }
+.modal h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; margin-bottom: 12px; }
+.modal p { font-size: 13px; color: var(--ink2); line-height: 1.7; margin-bottom: 12px; }
+.modal select { width: 100%; font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 8px 10px; border: 1px solid var(--warm); border-radius: 7px; background: var(--cream); color: var(--ink); outline: none; margin-bottom: 10px; }
+.modal select:focus { border-color: var(--gold); }
+.clist { display: flex; flex-direction: column; gap: 5px; max-height: 160px; overflow-y: auto; margin-bottom: 12px; }
+.ctag { display: flex; align-items: center; gap: 8px; background: var(--red-l); border: 1px solid #F5C6C2; border-radius: 7px; padding: 5px 10px; font-size: 12px; }
+.ctag span { flex: 1; color: var(--red); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ctag button { background: none; border: none; color: var(--red); font-size: 16px; padding: 0 2px; cursor: pointer; flex-shrink: 0; }
+.modal-btns { display: flex; gap: 8px; justify-content: flex-end; }
 
-/* ─── BADGE ─── */
-.badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 500; letter-spacing: 0.05em; }
-.badge-conflict { background: var(--danger-light); color: var(--danger); }
-.badge-ok { background: var(--green-light); color: var(--green); }
-
-/* ─── EMPTY STATE ─── */
-.empty-state { color: var(--muted); font-size: 13px; font-style: italic; padding: 8px 0; }
-
-/* ─── CONFLICT BANNER ─── */
-.conflict-banner { background: var(--danger-light); border: 1px solid #F5C6C2; border-radius: 8px; padding: 8px 12px; font-size: 12px; color: var(--danger); margin-bottom: 12px; display: none; }
-
-/* PRINT */
 @media print {
-  header, .toolbar, .sidebar, .conflict-banner { display: none !important; }
+  header, .toolbar, .sidebar { display: none !important; }
   .layout { display: block; }
-  .canvas-area { padding: 0; }
-  .table-card { page-break-inside: avoid; border: 1px solid #ccc; box-shadow: none; }
-  .tables-grid { gap: 12px; }
+  .canvas-wrap { overflow: visible; }
+  #canvas { width: auto; height: auto; }
 }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Plan de table — <span>Notre Mariage</span></h1>
-  <div class="header-stats">
-    <div><strong id="hPlaced">0</strong>placés</div>
-    <div><strong id="hTotal">0</strong>convives</div>
-    <div><strong id="hConflicts">0</strong>conflits</div>
-    <div><strong id="hFree">0</strong>places libres</div>
-  </div>
+  <span class="logo">Plan de table — <em>Mariage</em></span>
+  <div class="hsep"></div>
+  <div class="hstat"><strong id="hP">0</strong>placés</div>
+  <div class="hstat"><strong id="hT">0</strong>convives</div>
+  <div class="hstat"><strong id="hF">0</strong>libres</div>
+  <div class="hstat" id="hCW" style="display:none"><strong id="hC" style="color:#F09595">0</strong>conflits</div>
+  <div class="spacer"></div>
+  <span class="npill" id="npill">● Notion</span>
 </header>
 
 <div class="toolbar">
-  <span class="toolbar-label">Ajouter table</span>
-  <button class="btn btn-outline btn-sm" onclick="addTable('oval',10)">⬭ Ovale 10</button>
-  <button class="btn btn-outline btn-sm" onclick="addTable('rect',14)">▭ Rect. 14</button>
-  <button class="btn btn-outline btn-sm" onclick="addTable('oval',8)">⬭ Ovale 8</button>
-  <button class="btn btn-outline btn-sm" onclick="addTable('rect',6)">▭ Rect. 6</button>
-  <div class="sep"></div>
-  <button class="btn btn-gold btn-sm" onclick="autoPlace()">✦ Placement auto</button>
-  <button class="btn btn-outline btn-sm" onclick="showExport()">↓ Résumé</button>
-  <button class="btn btn-outline btn-sm" onclick="window.print()">⎙ Imprimer</button>
-  <button class="btn btn-danger btn-sm" onclick="resetAll()" style="margin-left:auto;">⟳ Réinitialiser</button>
+  <span class="tlabel">Ajouter :</span>
+  <button class="tbtn" onclick="addTable('oval',10)">⬭ Ovale 10</button>
+  <button class="tbtn" onclick="addTable('rect',14)">▭ Rect. 14</button>
+  <button class="tbtn" onclick="addTable('oval',8)">⬭ Ovale 8</button>
+  <button class="tbtn" onclick="addTable('rect',6)">▭ Rect. 6</button>
+  <div class="tsep"></div>
+  <button class="tbtn gold" onclick="autoPlace()">✦ Placement auto</button>
+  <button class="tbtn" onclick="openConstraint()">✗ Contraintes</button>
+  <button class="tbtn" onclick="window.print()">⎙ Imprimer</button>
+  <div class="tsep"></div>
+  <button class="tbtn save" id="btnSave" onclick="saveNotion()">↑ Sauvegarder Notion</button>
+  <button class="tbtn load" id="btnLoad" onclick="loadNotion()">↓ Charger Notion</button>
+  <div class="tstats">
+    <span><strong id="tP">0</strong> / <strong id="tT">0</strong> placés</span>
+    <span><strong id="tF">0</strong> places libres</span>
+  </div>
 </div>
 
 <div class="layout">
-  <!-- SIDEBAR -->
   <aside class="sidebar">
-    <div class="sb-block">
-      <h2>Ajouter un convive</h2>
-      <div class="input-group">
-        <input type="text" id="guestInput" placeholder="Prénom Nom" onkeydown="if(event.key==='Enter')addGuest()">
-        <button class="btn" onclick="addGuest()">+</button>
+    <div class="sb-sec">
+      <h3>Ajouter un convive</h3>
+      <div class="add-row">
+        <input type="text" id="gi" placeholder="Prénom Nom" onkeydown="if(event.key==='Enter')addGuest()">
+        <button class="addbtn" onclick="addGuest()">+</button>
       </div>
     </div>
-
-    <div class="sb-block">
-      <h2>Contraintes</h2>
-      <div class="constraint-row">
-        <select id="c1"><option value="">A…</option></select>
-        <select id="c2"><option value="">ne pas avec…</option></select>
-      </div>
-      <div style="margin-top:6px;">
-        <button class="btn btn-outline btn-sm" style="width:100%" onclick="addConstraint()">Ajouter contrainte ✗</button>
-      </div>
-      <div class="constraint-list" id="constraintList"></div>
-    </div>
-
-    <div class="sb-block" style="padding-bottom:8px;">
-      <h2>Non placés (<span id="unplacedCount">0</span>)</h2>
-      <div id="conflictBanner" class="conflict-banner"></div>
-    </div>
-    <div class="guest-pool" id="guestPool"></div>
+    <div class="pool-hd">Non placés (<span id="uCnt">0</span>)</div>
+    <div class="hint">👆 Glissez un nom sur un siège autour d'une table</div>
+    <div class="conf-alert" id="cAlert"></div>
+    <div class="pool" id="pool"></div>
   </aside>
 
-  <!-- CANVAS -->
-  <main class="canvas-area">
-    <h2>Salle de réception</h2>
-    <div class="tables-grid" id="tablesGrid"></div>
-    <div id="emptyCanvas" style="padding:40px;text-align:center;color:var(--muted);font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;display:none;">
-      Ajoutez des tables pour commencer le plan de table
-    </div>
-  </main>
+  <div class="canvas-wrap">
+    <div id="canvas"></div>
+  </div>
 </div>
 
-<!-- MODAL EXPORT -->
-<div class="overlay" id="overlay" onclick="if(event.target===this)closeModal()">
+<!-- Modal contraintes -->
+<div class="overlay" id="cModal">
   <div class="modal">
-    <h3>Résumé du plan de table</h3>
-    <pre id="exportText"></pre>
-    <div class="modal-actions">
-      <button class="btn btn-outline" onclick="copyExport()">Copier</button>
-      <button class="btn" onclick="closeModal()">Fermer</button>
+    <h3>Contraintes de placement</h3>
+    <p>Définissez les personnes qui ne doivent pas être assises à la même table. Leurs sièges apparaîtront en rouge.</p>
+    <select id="cA"><option value="">Choisir une personne…</option></select>
+    <select id="cB"><option value="">Ne pas asseoir avec…</option></select>
+    <div style="margin-bottom:12px">
+      <button class="tbtn gold" style="width:100%" onclick="addConstraint()">Ajouter cette contrainte</button>
+    </div>
+    <div class="clist" id="cList"></div>
+    <div class="modal-btns">
+      <button class="tbtn" onclick="document.getElementById('cModal').classList.remove('open')">Fermer</button>
     </div>
   </div>
 </div>
 
 <script>
-// ─── STATE ───
-let state = { guests: [], tables: [], constraints: [], tableCount: 0 };
+// ── CONFIG ──
+const NOTION_PAGE_ID = "364f0845-c058-81f9-8533-f6dc9ae3721f";
 
-function save() {
-  localStorage.setItem('mariage_plan', JSON.stringify(state));
-}
-function load() {
-  const raw = localStorage.getItem('mariage_plan');
-  if (raw) { try { state = JSON.parse(raw); } catch(e) {} }
+// ── STATE ──
+const S = { guests: [], tables: [], constraints: [], tableCount: 0 };
+let dragGuest = null; // id of guest being dragged
+
+// ── UTILS ──
+function uid() { return Math.random().toString(36).slice(2,9) + Date.now().toString(36); }
+function gfirst(id) { const g = S.guests.find(x=>x.id===id); return g ? g.name.split(' ')[0] : '?'; }
+function gfull(id) { const g = S.guests.find(x=>x.id===id); return g ? g.name : '?'; }
+function clash(a,b) { return !!S.constraints.find(c=>(c.a===a&&c.b===b)||(c.a===b&&c.b===a)); }
+function hasSeatClash(gid,tid) { const t=S.tables.find(x=>x.id===tid); return t?t.seats.some(s=>s!==gid&&clash(gid,s)):false; }
+function countClashes() { let n=0; for(const t of S.tables) for(let i=0;i<t.seats.length;i++) for(let j=i+1;j<t.seats.length;j++) if(clash(t.seats[i],t.seats[j]))n++; return n; }
+
+// ── GEOMETRY ──
+// Returns seat positions around oval or rectangle
+// Seats are spaced further out so labels have room
+function tableLayout(shape, cap) {
+  if (shape === 'oval') {
+    const rx = cap <= 8 ? 62 : 78;
+    const ry = cap <= 8 ? 48 : 60;
+    const W = rx*2 + 130; // extra room for seat labels
+    const H = ry*2 + 90;
+    const seats = [];
+    for (let i = 0; i < cap; i++) {
+      const a = (2*Math.PI*i/cap) - Math.PI/2;
+      // distance factor: push seats far enough from table edge so labels don't overlap
+      const dist = 1.52;
+      seats.push({
+        sx: W/2 + rx*dist*Math.cos(a) - 55, // center label (label width ~110px -> offset 55)
+        sy: H/2 + ry*dist*Math.sin(a) - 13,
+      });
+    }
+    return { W, H, bx: W/2-rx, by: H/2-ry, bw: rx*2, bh: ry*2, seats };
+  } else {
+    // Rectangle: seats on top and bottom rows
+    const cols = Math.ceil(cap/2);
+    const seatW = 114; // label width
+    const gap = 8;
+    const bw = Math.max(160, cols*(seatW+gap) - gap);
+    const bh = 52;
+    const W = bw + 130;
+    const H = bh + 100;
+    const top = Math.ceil(cap/2), bot = Math.floor(cap/2);
+    const seats = [];
+    const topStart = (W - (top*(seatW+gap)-gap)) / 2;
+    const botStart = (W - (bot*(seatW+gap)-gap)) / 2;
+    for (let i=0;i<top;i++) seats.push({ sx: topStart + i*(seatW+gap), sy: -4 });
+    for (let i=0;i<bot;i++) seats.push({ sx: botStart + i*(seatW+gap), sy: H-22 });
+    return { W, H, bx: 65, by: 48, bw, bh, seats };
+  }
 }
 
-// ─── INIT ───
-load();
-if (state.tables.length === 0) {
-  // Tables par défaut selon les specs : 2 rectangulaires 14 + 11 ovales 10
-  for (let i = 0; i < 11; i++) addTableSilent('oval', 10);
-  for (let i = 0; i < 2; i++) addTableSilent('rect', 14);
-}
-renderAll();
-
-function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,5); }
-
-// ─── TABLES ───
-function addTableSilent(shape, capacity) {
-  state.tableCount++;
-  const label = shape === 'rect' ? `Table rect. ${state.tableCount}` : `Table ${state.tableCount}`;
-  state.tables.push({ id: uid(), name: label, shape, capacity, seats: [] });
-}
-function addTable(shape, capacity) {
-  addTableSilent(shape, capacity);
-  save();
+// ── TABLES ──
+function addTable(shape, cap, x, y) {
+  S.tableCount++;
+  const name = shape==='rect' ? `Table rect. ${S.tableCount}` : `Table ${S.tableCount}`;
+  S.tables.push({ id:uid(), name, shape, cap, seats:[], x:x||(80+Math.random()*700), y:y||(80+Math.random()*500) });
   renderAll();
 }
+
 function deleteTable(id) {
-  const t = state.tables.find(x => x.id === id);
-  if (!t) return;
-  if (!confirm(`Supprimer "${t.name}" ? Les convives placés retourneront dans le pool.`)) return;
-  t.seats.forEach(sid => {
-    const g = state.guests.find(x => x.id === sid);
-    if (g) g.tableId = null;
-  });
-  state.tables = state.tables.filter(x => x.id !== id);
-  save(); renderAll();
+  const t = S.tables.find(x=>x.id===id);
+  if (!t || !confirm(`Supprimer "${t.name}" ?`)) return;
+  t.seats.forEach(sid => { const g=S.guests.find(x=>x.id===sid); if(g) g.tableId=null; });
+  S.tables = S.tables.filter(x=>x.id!==id);
+  renderAll();
 }
 
-// ─── GUESTS ───
+// ── GUESTS ──
 function addGuest() {
-  const inp = document.getElementById('guestInput');
-  const name = inp.value.trim();
-  if (!name) return;
-  state.guests.push({ id: uid(), name, tableId: null });
-  inp.value = '';
-  save(); renderAll();
+  const inp = document.getElementById('gi');
+  const name = inp.value.trim(); if (!name) return;
+  S.guests.push({ id:uid(), name, tableId:null });
+  inp.value=''; inp.focus();
+  renderAll();
 }
+
 function removeGuest(id) {
-  const g = state.guests.find(x => x.id === id);
-  if (g && g.tableId) {
-    const t = state.tables.find(x => x.id === g.tableId);
-    if (t) t.seats = t.seats.filter(s => s !== id);
-  }
-  state.guests = state.guests.filter(x => x.id !== id);
-  state.constraints = state.constraints.filter(c => c.a !== id && c.b !== id);
-  save(); renderAll();
+  const g = S.guests.find(x=>x.id===id);
+  if (g && g.tableId) { const t=S.tables.find(x=>x.id===g.tableId); if(t) t.seats=t.seats.filter(s=>s!==id); }
+  S.guests = S.guests.filter(x=>x.id!==id);
+  S.constraints = S.constraints.filter(c=>c.a!==id&&c.b!==id);
+  renderAll();
 }
+
+// Place guest on table — only called from drop, never on click
+function placeGuest(gid, tid) {
+  const g = S.guests.find(x=>x.id===gid);
+  const t = S.tables.find(x=>x.id===tid);
+  if (!g || !t) return;
+  if (t.seats.length >= t.cap) { setPill('err','Table complète !'); setTimeout(()=>setPill('','● Notion'),2500); return; }
+  // Remove from old table
+  if (g.tableId) {
+    const old = S.tables.find(x=>x.id===g.tableId);
+    if (old) old.seats = old.seats.filter(s=>s!==gid);
+  }
+  g.tableId = tid;
+  if (!t.seats.includes(gid)) t.seats.push(gid);
+  renderAll();
+}
+
 function removeSeat(gid, tid) {
-  const t = state.tables.find(x => x.id === tid);
-  const g = state.guests.find(x => x.id === gid);
-  if (t) t.seats = t.seats.filter(s => s !== gid);
-  if (g) g.tableId = null;
-  save(); renderAll();
+  const t=S.tables.find(x=>x.id===tid), g=S.guests.find(x=>x.id===gid);
+  if (t) t.seats=t.seats.filter(s=>s!==gid);
+  if (g) g.tableId=null;
+  renderAll();
 }
 
-// ─── CONSTRAINTS ───
-function addConstraint() {
-  const a = document.getElementById('c1').value;
-  const b = document.getElementById('c2').value;
-  if (!a || !b || a === b) return;
-  if (state.constraints.find(c => (c.a===a&&c.b===b)||(c.a===b&&c.b===a))) return;
-  state.constraints.push({ a, b });
-  save(); renderAll();
-}
-function removeConstraint(idx) {
-  state.constraints.splice(idx, 1);
-  save(); renderAll();
-}
-function hasConflict(gid, tid) {
-  const t = state.tables.find(x => x.id === tid);
-  if (!t) return false;
-  return t.seats.some(sid => sid !== gid && state.constraints.find(c =>
-    (c.a===gid&&c.b===sid)||(c.a===sid&&c.b===gid)
-  ));
-}
-function conflictsWith(ga, gb) {
-  return !!state.constraints.find(c => (c.a===ga&&c.b===gb)||(c.a===gb&&c.b===ga));
-}
-function countConflicts() {
-  let n = 0;
-  for (const t of state.tables) {
-    for (let i = 0; i < t.seats.length; i++)
-      for (let j = i+1; j < t.seats.length; j++)
-        if (conflictsWith(t.seats[i], t.seats[j])) n++;
-  }
-  return n;
-}
-function gname(id) { const g = state.guests.find(x => x.id === id); return g ? g.name : '?'; }
-
-// ─── AUTO PLACE ───
+// ── AUTO PLACE ──
 function autoPlace() {
-  const unplaced = state.guests.filter(g => !g.tableId);
+  const unplaced = S.guests.filter(g=>!g.tableId);
   if (!unplaced.length) { alert('Tous les convives sont déjà placés !'); return; }
-  let placed = 0;
   for (const g of unplaced) {
     let best = null;
-    for (const t of state.tables) {
-      if (t.seats.length >= t.capacity) continue;
-      if (!t.seats.some(sid => conflictsWith(g.id, sid))) {
-        best = t; break;
-      }
-    }
-    if (!best) {
-      for (const t of state.tables) {
-        if (t.seats.length < t.capacity) { best = t; break; }
-      }
-    }
-    if (best) {
-      g.tableId = best.id;
-      best.seats.push(g.id);
-      placed++;
-    }
+    // Prefer table with no clashes
+    for (const t of S.tables) { if (t.seats.length<t.cap && !t.seats.some(s=>clash(g.id,s))) { best=t; break; } }
+    // Fallback: any table with space
+    if (!best) for (const t of S.tables) { if (t.seats.length<t.cap) { best=t; break; } }
+    if (best) { g.tableId=best.id; best.seats.push(g.id); }
   }
-  save(); renderAll();
-  if (placed < unplaced.length) alert(`${unplaced.length - placed} convive(s) n'ont pas pu être placés (plus de places disponibles).`);
+  renderAll();
 }
 
-// ─── DRAG & DROP ───
-let draggedId = null;
-
-// ─── RENDER ───
-function renderAll() {
-  renderPool();
-  renderTables();
-  renderConstraints();
-  updateSelects();
-  updateHeader();
+// ── CONSTRAINTS ──
+function openConstraint() {
+  const opts = S.guests.map(g=>`<option value="${g.id}">${g.name}</option>`).join('');
+  document.getElementById('cA').innerHTML = '<option value="">Choisir une personne…</option>'+opts;
+  document.getElementById('cB').innerHTML = '<option value="">Ne pas asseoir avec…</option>'+opts;
+  renderCList();
+  document.getElementById('cModal').classList.add('open');
 }
+function addConstraint() {
+  const a=document.getElementById('cA').value, b=document.getElementById('cB').value;
+  if (!a||!b||a===b) return;
+  if (S.constraints.find(c=>(c.a===a&&c.b===b)||(c.a===b&&c.b===a))) return;
+  S.constraints.push({a,b}); renderCList(); renderAll();
+}
+function removeConstraint(i) { S.constraints.splice(i,1); renderCList(); renderAll(); }
+function renderCList() {
+  document.getElementById('cList').innerHTML = S.constraints.length===0
+    ? '<p style="font-size:12px;color:var(--ink3);font-style:italic;margin:0">Aucune contrainte définie</p>'
+    : S.constraints.map((c,i)=>`
+      <div class="ctag">
+        <span>${gfull(c.a)} ✗ ${gfull(c.b)}</span>
+        <button onclick="removeConstraint(${i})" title="Supprimer">×</button>
+      </div>`).join('');
+}
+
+// ── RENDER ──
+function renderAll() { renderPool(); renderTables(); renderStats(); }
 
 function renderPool() {
-  const pool = document.getElementById('guestPool');
-  document.getElementById('unplacedCount').textContent = state.guests.filter(g => !g.tableId).length;
-
-  // conflict banner
-  const conflicts = countConflicts();
-  const banner = document.getElementById('conflictBanner');
-  if (conflicts > 0) {
-    banner.style.display = 'block';
-    banner.textContent = `⚠ ${conflicts} conflit(s) de contrainte détecté(s). Les noms en rouge indiquent des voisins incompatibles.`;
-  } else {
-    banner.style.display = 'none';
-  }
-
-  pool.innerHTML = state.guests.map(g => `
-    <div class="chip ${g.tableId ? 'placed' : ''}"
-         draggable="${!g.tableId}"
-         data-id="${g.id}"
-         ondragstart="draggedId='${g.id}';this.classList.add('dragging')"
-         ondragend="this.classList.remove('dragging')">
+  document.getElementById('uCnt').textContent = S.guests.filter(g=>!g.tableId).length;
+  document.getElementById('pool').innerHTML = S.guests.map(g=>`
+    <div class="chip${g.tableId?' placed':''}"
+      draggable="${!g.tableId}"
+      ondragstart="onChipDragStart(event,'${g.id}')"
+      ondragend="onChipDragEnd(event)">
       ${g.name}
-      <span class="chip-del" onclick="event.stopPropagation();removeGuest('${g.id}')">×</span>
+      <span class="cx" onclick="removeGuest('${g.id}')">×</span>
     </div>`).join('');
+}
+
+function onChipDragStart(e, id) {
+  dragGuest = id;
+  e.dataTransfer.effectAllowed = 'move';
+  // mark chip as dragging
+  setTimeout(()=>{
+    document.querySelectorAll('.chip').forEach(c=>{
+      if(c.querySelector('.cx') && c.innerHTML.includes(id)) c.classList.add('dragging');
+    });
+  },0);
+}
+function onChipDragEnd(e) {
+  dragGuest = null;
+  document.querySelectorAll('.chip.dragging').forEach(c=>c.classList.remove('dragging'));
 }
 
 function renderTables() {
-  const grid = document.getElementById('tablesGrid');
-  const empty = document.getElementById('emptyCanvas');
-  if (state.tables.length === 0) {
-    grid.innerHTML = '';
-    empty.style.display = 'block';
-    return;
-  }
-  empty.style.display = 'none';
+  const cv = document.getElementById('canvas');
+  cv.innerHTML = '';
 
-  grid.innerHTML = state.tables.map(t => {
-    const pct = Math.round(t.seats.length / t.capacity * 100);
-    const isFull = t.seats.length >= t.capacity;
-    const isOval = t.shape === 'oval';
+  for (const t of S.tables) {
+    const lay = tableLayout(t.shape, t.cap);
 
-    const seatsHtml = t.seats.map(sid => {
-      const g = state.guests.find(x => x.id === sid);
-      if (!g) return '';
-      const conflict = hasConflict(sid, t.id);
-      return `<div class="seat-chip ${conflict ? 'conflict' : ''}" title="${g.name}${conflict ? ' ⚠ conflit !' : ''} — cliquer pour retirer" onclick="removeSeat('${sid}','${t.id}')">
-        ${g.name.split(' ')[0]}
-        <span class="seat-x">×</span>
-      </div>`;
-    }).join('');
+    const grp = document.createElement('div');
+    grp.className = 'tg';
+    grp.style.cssText = `left:${t.x}px;top:${t.y}px;width:${lay.W}px;height:${lay.H}px`;
 
-    const emptySlots = Math.max(0, Math.min(t.capacity - t.seats.length, 4));
-    const emptySlotsHtml = !isFull ? `<div class="empty-slot">+${t.capacity - t.seats.length} libre${t.capacity - t.seats.length > 1 ? 's' : ''}</div>` : '';
+    // Delete button
+    const del = document.createElement('button');
+    del.className = 'tdel'; del.innerHTML = '×'; del.title = 'Supprimer la table';
+    del.addEventListener('click', () => deleteTable(t.id));
+    grp.appendChild(del);
 
-    return `<div class="table-card ${isFull ? 'full' : ''}"
-      data-id="${t.id}"
-      ondragover="event.preventDefault();this.classList.add('dragover')"
-      ondragleave="this.classList.remove('dragover')"
-      ondrop="event.preventDefault();this.classList.remove('dragover');dropOnTable('${t.id}')">
-      <div class="table-card-header">
-        <div class="table-icon ${isOval ? '' : 'rect'}">${isOval ? '⬭' : '▭'}</div>
-        <div>
-          <div class="table-name" contenteditable="true"
-            onblur="renameTable('${t.id}',this.textContent.trim())"
-            onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur()}">${t.name}</div>
-          <div class="table-meta">${t.seats.length}/${t.capacity} places</div>
-        </div>
-      </div>
-      <div class="progress-bar"><div class="progress-fill ${isFull ? 'full' : ''}" style="width:${pct}%"></div></div>
-      <div class="table-seats">${seatsHtml}${emptySlotsHtml}</div>
-      <div class="table-actions">
-        <button class="btn btn-outline btn-sm" onclick="deleteTable('${t.id}')">Supprimer</button>
-      </div>
-    </div>`;
-  }).join('');
-}
+    // Table body
+    const body = document.createElement('div');
+    body.className = `tbody ${t.shape}`;
+    body.style.cssText = `left:${lay.bx}px;top:${lay.by}px;width:${lay.bw}px;height:${lay.bh}px`;
 
-function renameTable(id, name) {
-  const t = state.tables.find(x => x.id === id);
-  if (t && name) { t.name = name; save(); }
-}
+    // Drop target on body
+    body.addEventListener('dragover', e => { e.preventDefault(); body.classList.add('dragover'); });
+    body.addEventListener('dragleave', () => body.classList.remove('dragover'));
+    body.addEventListener('drop', e => {
+      e.preventDefault(); body.classList.remove('dragover');
+      if (dragGuest) placeGuest(dragGuest, t.id);
+    });
 
-function dropOnTable(tid) {
-  if (!draggedId) return;
-  const g = state.guests.find(x => x.id === draggedId);
-  const t = state.tables.find(x => x.id === tid);
-  draggedId = null;
-  if (!g || !t || g.tableId === tid) return;
-  if (t.seats.length >= t.capacity) { alert(`La table "${t.name}" est complète !`); return; }
-  if (g.tableId) {
-    const old = state.tables.find(x => x.id === g.tableId);
-    if (old) old.seats = old.seats.filter(s => s !== g.id);
-  }
-  g.tableId = tid;
-  t.seats.push(g.id);
-  save(); renderAll();
-}
+    // Name + count
+    const lbl = document.createElement('div'); lbl.className='tname'; lbl.textContent=t.name; body.appendChild(lbl);
+    const cap = document.createElement('div'); cap.className='tcap'; cap.textContent=`${t.seats.length}/${t.cap}`; body.appendChild(cap);
 
-function renderConstraints() {
-  const el = document.getElementById('constraintList');
-  el.innerHTML = state.constraints.map((c, i) => `
-    <div class="constraint-tag">
-      <span>${gname(c.a)} ✗ ${gname(c.b)}</span>
-      <button onclick="removeConstraint(${i})" title="Supprimer">×</button>
-    </div>`).join('');
-}
+    // Progress bar
+    const prog = document.createElement('div'); prog.className='tprog';
+    const fill = document.createElement('div');
+    fill.className = 'tprog-fill'+(t.seats.length>=t.cap?' full':'');
+    fill.style.width = Math.round(t.seats.length/t.cap*100)+'%';
+    prog.appendChild(fill); body.appendChild(prog);
 
-function updateSelects() {
-  const opts = state.guests.map(g => `<option value="${g.id}">${g.name}</option>`).join('');
-  document.getElementById('c1').innerHTML = '<option value="">A…</option>' + opts;
-  document.getElementById('c2').innerHTML = '<option value="">ne pas avec…</option>' + opts;
-}
+    // Drag to move table — only triggered on body, not on seat labels
+    let ox,oy,mx,my,moving=false;
+    body.addEventListener('mousedown', e => {
+      if (e.button!==0) return;
+      e.preventDefault(); e.stopPropagation();
+      ox=t.x; oy=t.y; mx=e.clientX; my=e.clientY; moving=false;
+      const mm = ev => {
+        const dx=ev.clientX-mx, dy=ev.clientY-my;
+        if (!moving && Math.abs(dx)+Math.abs(dy)<4) return;
+        moving=true;
+        t.x=Math.max(0,ox+dx); t.y=Math.max(0,oy+dy);
+        grp.style.left=t.x+'px'; grp.style.top=t.y+'px';
+      };
+      const mu = () => { document.removeEventListener('mousemove',mm); document.removeEventListener('mouseup',mu); };
+      document.addEventListener('mousemove',mm);
+      document.addEventListener('mouseup',mu);
+    });
 
-function updateHeader() {
-  const placed = state.guests.filter(g => g.tableId).length;
-  const total = state.guests.length;
-  const conflicts = countConflicts();
-  const totalSeats = state.tables.reduce((s, t) => s + t.capacity, 0);
-  const free = totalSeats - placed;
-  document.getElementById('hPlaced').textContent = placed;
-  document.getElementById('hTotal').textContent = total;
-  document.getElementById('hConflicts').textContent = conflicts;
-  document.getElementById('hFree').textContent = free;
-}
+    grp.appendChild(body);
 
-// ─── EXPORT ───
-function showExport() {
-  let text = 'PLAN DE TABLE — RÉSUMÉ\n';
-  text += '═'.repeat(40) + '\n\n';
-  for (const t of state.tables) {
-    text += `${t.name.toUpperCase()} (${t.shape === 'oval' ? 'ovale' : 'rect.'}, ${t.capacity} places)\n`;
-    text += '─'.repeat(35) + '\n';
-    if (t.seats.length === 0) {
-      text += '  (aucun convive)\n';
-    } else {
-      t.seats.forEach((sid, i) => {
-        const g = state.guests.find(x => x.id === sid);
-        const conflict = hasConflict(sid, t.id);
-        text += `  ${i+1}. ${g ? g.name : '?'}${conflict ? ' ⚠' : ''}\n`;
+    // Seats
+    lay.seats.forEach((s,i) => {
+      const gid = t.seats[i] || null;
+      const sw = document.createElement('div');
+      sw.className = 'seat';
+      sw.style.cssText = `left:${s.sx}px;top:${s.sy}px;width:110px;height:26px`;
+
+      const sl = document.createElement('div');
+      const conflict = gid && hasSeatClash(gid, t.id);
+      sl.className = `slabel${gid?' occ':'  empty'}${conflict?' conflict':''}`;
+      sl.textContent = gid ? gfull(gid) : 'libre'; // show FULL name
+      sl.title = gid ? gfull(gid)+(conflict?' ⚠ conflit avec un voisin':'') : 'Glissez un convive ici';
+
+      // Click to remove (only on occupied seats)
+      if (gid) {
+        sl.addEventListener('click', e => { e.stopPropagation(); removeSeat(gid, t.id); });
+      }
+
+      // Drop directly on a specific seat
+      sl.addEventListener('dragover', e => { e.preventDefault(); sl.classList.add('dov'); });
+      sl.addEventListener('dragleave', () => sl.classList.remove('dov'));
+      sl.addEventListener('drop', e => {
+        e.preventDefault(); sl.classList.remove('dov');
+        if (!dragGuest) return;
+        if (gid) removeSeat(gid, t.id); // free the seat first
+        placeGuest(dragGuest, t.id);
       });
-    }
-    text += `  Places libres : ${t.capacity - t.seats.length}\n\n`;
+
+      sw.appendChild(sl);
+      grp.appendChild(sw);
+    });
+
+    cv.appendChild(grp);
   }
-  const unplaced = state.guests.filter(g => !g.tableId);
-  if (unplaced.length) {
-    text += 'NON PLACÉS\n' + '─'.repeat(35) + '\n';
-    unplaced.forEach(g => { text += `  • ${g.name}\n`; });
-  }
-  text += '\n' + '═'.repeat(40) + '\n';
-  text += `Total : ${state.guests.filter(g=>g.tableId).length}/${state.guests.length} convives placés`;
-  document.getElementById('exportText').textContent = text;
-  document.getElementById('overlay').classList.add('open');
-}
-function closeModal() { document.getElementById('overlay').classList.remove('open'); }
-function copyExport() {
-  navigator.clipboard.writeText(document.getElementById('exportText').textContent)
-    .then(() => alert('Copié dans le presse-papiers !'));
 }
 
-function resetAll() {
-  if (!confirm('Réinitialiser tout le plan de table ? Cette action est irréversible.')) return;
-  state = { guests: [], tables: [], constraints: [], tableCount: 0 };
-  for (let i = 0; i < 11; i++) addTableSilent('oval', 10);
-  for (let i = 0; i < 2; i++) addTableSilent('rect', 14);
-  save(); renderAll();
+function renderStats() {
+  const placed = S.guests.filter(g=>g.tableId).length;
+  const total = S.guests.length;
+  const free = S.tables.reduce((s,t)=>s+t.cap,0)-placed;
+  const conf = countClashes();
+  document.getElementById('hP').textContent = placed;
+  document.getElementById('hT').textContent = total;
+  document.getElementById('hF').textContent = free;
+  document.getElementById('tP').textContent = placed;
+  document.getElementById('tT').textContent = total;
+  document.getElementById('tF').textContent = free;
+  document.getElementById('hC').textContent = conf;
+  document.getElementById('hCW').style.display = conf>0?'':'none';
+  const ca=document.getElementById('cAlert');
+  if (conf>0){ca.style.display='block';ca.textContent=`⚠ ${conf} conflit${conf>1?'s':''} — sièges en rouge`;}
+  else ca.style.display='none';
 }
 
-// Touch support for mobile
-let touchGuest = null;
-document.addEventListener('touchstart', e => {
-  const chip = e.target.closest('.chip:not(.placed)');
-  if (chip) { touchGuest = chip.dataset.id; chip.style.opacity = '0.5'; }
-}, { passive: true });
-document.addEventListener('touchend', e => {
-  if (!touchGuest) return;
-  const card = document.elementFromPoint(e.changedTouches[0].clientX, e.changedTouches[0].clientY)?.closest('.table-card');
-  if (card) dropOnTable(card.dataset.id);
-  document.querySelectorAll('.chip').forEach(c => c.style.opacity = '');
-  touchGuest = null;
-}, { passive: true });
+// ── NOTION ──
+function setPill(type,text){
+  const p=document.getElementById('npill');
+  p.className='npill'+(type?' '+type:'');
+  p.textContent=text;
+}
+
+function stateToJSON(){
+  return JSON.stringify({
+    guests:S.guests,
+    tables:S.tables.map(t=>({...t})),
+    constraints:S.constraints,
+    tableCount:S.tableCount,
+    __version:2,
+    __saved:new Date().toISOString()
+  },null,2);
+}
+
+async function saveNotion(){
+  document.getElementById('btnSave').disabled=true;
+  setPill('busy','⟳ Sauvegarde…');
+  try {
+    const data=stateToJSON();
+    const res=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        model:"claude-sonnet-4-20250514",
+        max_tokens:1000,
+        system:"You update a Notion page. Respond ONLY with JSON: {\"ok\":true} or {\"ok\":false,\"error\":\"...\"}",
+        messages:[{role:"user",content:`Update Notion page ID "${NOTION_PAGE_ID}". Replace all content with exactly this:\n\n> Cette page est utilisée par l'outil plan de table. Ne pas modifier manuellement.\n\n\`\`\`json\n${data}\n\`\`\``}],
+        mcp_servers:[{type:"url",url:"https://mcp.notion.com/mcp",name:"notion"}]
+      })
+    });
+    const d=await res.json();
+    const txt=(d.content||[]).map(x=>x.text||'').join('');
+    let r;
+    try{r=JSON.parse(txt.replace(/```json?|```/g,'').trim());}
+    catch(e){r={ok:txt.includes('"ok":true')||txt.includes('updated')||txt.includes('success')};}
+    if(r.ok!==false){setPill('ok','✓ Sauvegardé');setTimeout(()=>setPill('ok','● Notion ✓'),3000);}
+    else throw new Error(r.error||'Erreur inconnue');
+  }catch(e){
+    setPill('err','✗ Erreur'); alert('Erreur sauvegarde:\n'+e.message);
+    setTimeout(()=>setPill('','● Notion'),3000);
+  }
+  document.getElementById('btnSave').disabled=false;
+}
+
+async function loadNotion(){
+  document.getElementById('btnLoad').disabled=true;
+  setPill('busy','⟳ Chargement…');
+  try{
+    const res=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        model:"claude-sonnet-4-20250514",
+        max_tokens:8000,
+        system:"Fetch the Notion page and return ONLY the raw JSON from the code block. No markdown, no explanation.",
+        messages:[{role:"user",content:`Fetch Notion page "${NOTION_PAGE_ID}" and return only the JSON object from its code block.`}],
+        mcp_servers:[{type:"url",url:"https://mcp.notion.com/mcp",name:"notion"}]
+      })
+    });
+    const d=await res.json();
+    const txt=(d.content||[]).map(x=>x.text||'').join('');
+    const clean=txt.replace(/```json?|```/g,'').trim();
+    const s=clean.indexOf('{'),e=clean.lastIndexOf('}');
+    if(s===-1)throw new Error('Aucune donnée dans Notion');
+    const parsed=JSON.parse(clean.slice(s,e+1));
+    if(!parsed.guests)throw new Error('Format invalide');
+    S.guests=parsed.guests;
+    S.tables=parsed.tables||[];
+    S.constraints=parsed.constraints||[];
+    S.tableCount=parsed.tableCount||0;
+    renderAll();
+    setPill('ok','✓ Chargé');
+    setTimeout(()=>setPill('ok','● Notion ✓'),3000);
+  }catch(e){
+    setPill('err','✗ Erreur'); alert('Erreur chargement:\n'+e.message);
+    setTimeout(()=>setPill('','● Notion'),3000);
+  }
+  document.getElementById('btnLoad').disabled=false;
+}
+
+// ── INIT : 11 tables ovales + 2 rectangulaires ──
+(function(){
+  const positions=[
+    [80,70],[320,70],[560,70],[800,70],
+    [80,310],[320,310],[560,310],[800,310],
+    [80,550],[320,550],[560,550]
+  ];
+  positions.forEach((p,i)=>{
+    S.tableCount++;
+    S.tables.push({id:uid(),name:`Table ${S.tableCount}`,shape:'oval',cap:10,seats:[],x:p[0],y:p[1]});
+  });
+  for(let i=0;i<2;i++){
+    S.tableCount++;
+    S.tables.push({id:uid(),name:`Table rect. ${S.tableCount}`,shape:'rect',cap:14,seats:[],x:1080,y:70+i*310});
+  }
+  renderAll();
+  setPill('','● Notion');
+})();
 </script>
 </body>
 </html>
