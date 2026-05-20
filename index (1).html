@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan de table — Mariage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #FAF8F4;
+  --warm: #EDE5D8;
+  --gold: #C8A96A;
+  --gold-d: #8B6A1F;
+  --gold-l: #EDD9A3;
+  --ink: #28251E;
+  --ink2: #5A5448;
+  --ink3: #9A9080;
+  --white: #FFFFFF;
+  --green: #2D6A4F;
+  --green-l: #D8F0E4;
+  --green-b: #5DCAA5;
+  --red: #B83232;
+  --red-l: #FDEAEA;
+  --red-b: #F09595;
+  --blue-l: #EAF2FC;
+  --blue: #2563A8;
+  --shadow: 0 2px 16px rgba(40,37,30,.08);
+  --shadow-lg: 0 8px 40px rgba(40,37,30,.14);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); display: flex; flex-direction: column; }
+
+/* ── HEADER ── */
+header {
+  height: 52px; flex-shrink: 0;
+  background: var(--ink);
+  display: flex; align-items: center; gap: 10px; padding: 0 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.3);
+  z-index: 20;
+}
+.logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; color: var(--cream); letter-spacing: .04em; }
+.logo em { color: var(--gold); font-style: italic; }
+.hsep { width: 1px; height: 22px; background: rgba(255,255,255,.12); margin: 0 4px; flex-shrink: 0; }
+.hstat { font-size: 11px; color: rgba(255,255,255,.45); line-height: 1.25; }
+.hstat strong { font-size: 14px; font-weight: 500; color: var(--gold-l); display: block; }
+.spacer { flex: 1; }
+.npill { font-size: 11px; padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.55); background: rgba(255,255,255,.06); white-space: nowrap; }
+.npill.ok  { border-color: var(--green-b); color: var(--green-b); background: rgba(93,202,165,.1); }
+.npill.busy{ border-color: #85B7EB; color: #85B7EB; background: rgba(133,183,235,.1); }
+.npill.err { border-color: var(--red-b); color: var(--red-b); background: rgba(240,149,149,.1); }
+
+/* ── TOOLBAR ── */
+.toolbar {
+  flex-shrink: 0; background: var(--white);
+  border-bottom: 1px solid var(--warm);
+  padding: 7px 14px; display: flex; align-items: center; gap: 7px; flex-wrap: wrap;
+  z-index: 10;
+}
+.tlabel { font-size: 11px; color: var(--ink3); font-weight: 500; letter-spacing: .05em; text-transform: uppercase; flex-shrink: 0; }
+.tbtn {
+  font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 400;
+  padding: 5px 12px; border-radius: 7px; cursor: pointer; border: 1px solid var(--warm);
+  background: var(--white); color: var(--ink); transition: all .15s; white-space: nowrap;
+}
+.tbtn:hover { background: var(--warm); border-color: var(--gold-l); }
+.tbtn:disabled { opacity: .4; cursor: default; }
+.tbtn.gold { background: var(--gold); color: var(--ink); border-color: var(--gold); font-weight: 500; }
+.tbtn.gold:hover { background: var(--gold-d); color: #fff; }
+.tbtn.save { background: var(--green); color: #fff; border-color: var(--green); }
+.tbtn.save:hover { background: #1A4D39; }
+.tbtn.load { background: var(--blue-l); color: var(--blue); border-color: #B5D4F4; }
+.tbtn.load:hover { background: #D0E8F8; }
+.tsep { width: 1px; height: 20px; background: var(--warm); margin: 0 2px; flex-shrink: 0; }
+.tstats { margin-left: auto; font-size: 12px; color: var(--ink3); display: flex; gap: 14px; }
+.tstats strong { color: var(--ink); font-weight: 500; }
+
+/* ── LAYOUT ── */
+.layout { flex: 1; display: flex; min-height: 0; overflow: hidden; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 240px; flex-shrink: 0;
+  background: var(--white); border-right: 1px solid var(--warm);
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.sb-sec { padding: 14px; border-bottom: 1px solid var(--warm); }
+.sb-sec h3 {
+  font-family: 'Cormorant Garamond', serif; font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .1em; color: var(--gold-d); margin-bottom: 9px;
+}
+.add-row { display: flex; gap: 6px; }
+.add-row input {
+  flex: 1; font-family: 'DM Sans', sans-serif; font-size: 13px;
+  padding: 7px 10px; border: 1px solid var(--warm); border-radius: 7px;
+  background: var(--cream); color: var(--ink); outline: none; transition: border-color .2s; min-width: 0;
+}
+.add-row input:focus { border-color: var(--gold); }
+.add-row .addbtn {
+  background: var(--ink); color: var(--cream); border: 1px solid var(--ink);
+  border-radius: 7px; padding: 7px 13px; font-size: 18px; line-height: 1; cursor: pointer; transition: background .15s;
+}
+.add-row .addbtn:hover { background: var(--gold-d); border-color: var(--gold-d); }
+.pool-hd {
+  padding: 9px 14px 6px; font-size: 11px; font-weight: 500;
+  color: var(--ink3); text-transform: uppercase; letter-spacing: .07em;
+  border-bottom: 1px solid var(--warm); flex-shrink: 0;
+}
+.conf-alert { padding: 7px 12px; background: var(--red-l); border-bottom: 1px solid #F5C6C2; font-size: 11px; color: var(--red); display: none; flex-shrink: 0; }
+.hint { padding: 8px 12px; background: var(--blue-l); border-bottom: 1px solid #B5D4F4; font-size: 11px; color: var(--blue); flex-shrink: 0; }
+.pool { flex: 1; overflow-y: auto; padding: 8px; display: flex; flex-wrap: wrap; gap: 5px; align-content: flex-start; }
+.chip {
+  background: var(--cream); border: 1px solid var(--warm); border-radius: 20px;
+  padding: 4px 10px; font-size: 12px; display: flex; align-items: center; gap: 5px;
+  cursor: grab; user-select: none; transition: all .15s; white-space: nowrap;
+}
+.chip:hover { border-color: var(--gold); background: var(--warm); }
+.chip.placed { opacity: .28; pointer-events: none; }
+.chip.dragging { opacity: .45; cursor: grabbing; }
+.chip .cx { cursor: pointer; color: var(--ink3); font-size: 14px; line-height: 1; }
+.chip .cx:hover { color: var(--red); }
+
+/* ── CANVAS ── */
+.canvas-wrap {
+  flex: 1; overflow: auto; position: relative;
+  background-color: var(--cream);
+  background-image: radial-gradient(circle, rgba(200,169,106,.2) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+#canvas { position: relative; width: 2000px; height: 1200px; }
+
+/* ── TABLE GROUP ── */
+.tg { position: absolute; }
+
+/* ── TABLE BODY ── */
+.tbody {
+  position: absolute;
+  border: 2px solid var(--warm);
+  background: var(--white);
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  cursor: move; z-index: 2; box-shadow: var(--shadow);
+  transition: border-color .2s, box-shadow .2s;
+  /* prevent text selection while dragging */
+  user-select: none;
+}
+.tbody.oval { border-radius: 50%; }
+.tbody.rect { border-radius: 14px; }
+.tbody.dragover { border-color: var(--green) !important; box-shadow: 0 0 0 4px rgba(45,106,79,.15); }
+.tname {
+  font-family: 'Cormorant Garamond', serif; font-size: 13px; font-weight: 600;
+  color: var(--ink); text-align: center; padding: 2px 10px; pointer-events: none;
+  max-width: 90%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.tcap { font-size: 10px; color: var(--ink3); pointer-events: none; }
+.tprog { position: absolute; bottom: 7px; left: 50%; transform: translateX(-50%); width: 36px; height: 3px; background: var(--warm); border-radius: 2px; overflow: hidden; pointer-events: none; }
+.tprog-fill { height: 100%; border-radius: 2px; transition: width .3s; background: var(--gold); }
+.tprog-fill.full { background: var(--green); }
+.tdel {
+  position: absolute; top: -10px; right: -10px; width: 22px; height: 22px;
+  background: var(--red-l); border: 1px solid var(--red-b); color: var(--red);
+  border-radius: 50%; font-size: 15px; line-height: 1; padding: 0;
+  display: none; align-items: center; justify-content: center; cursor: pointer; z-index: 10;
+}
+.tg:hover .tdel { display: flex; }
+
+/* ── SEAT ── */
+.seat { position: absolute; z-index: 3; display: flex; align-items: center; justify-content: center; }
+.slabel {
+  font-size: 11px;
+  background: var(--cream);
+  border: 1px solid var(--warm);
+  border-radius: 14px;
+  padding: 3px 10px;
+  white-space: nowrap;
+  /* wider labels so names are not cut off */
+  max-width: 110px;
+  min-width: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all .15s;
+  cursor: default;
+  text-align: center;
+  line-height: 1.4;
+  box-shadow: 0 1px 4px rgba(40,37,30,.06);
+}
+.slabel.empty { border-style: dashed; color: var(--ink3); font-style: italic; font-size: 10px; }
+.slabel.occ { font-weight: 500; color: var(--ink); cursor: grab; }
+.slabel.occ:hover { background: var(--warm); border-color: var(--gold); }
+.slabel.occ.dragging-seat { opacity: .4; cursor: grabbing; }
+.slabel.conflict { background: var(--red-l); border-color: var(--red-b); color: var(--red); }
+.slabel.dov { background: var(--green-l); border-color: var(--green-b); border-style: solid; }
+
+/* ── MODAL ── */
+.overlay { position: fixed; inset: 0; background: rgba(40,37,30,.4); z-index: 100; display: none; align-items: center; justify-content: center; backdrop-filter: blur(3px); }
+.overlay.open { display: flex; }
+.modal { background: var(--white); border-radius: 16px; padding: 26px; max-width: 460px; width: 92%; box-shadow: var(--shadow-lg); }
+.modal h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; margin-bottom: 12px; }
+.modal p { font-size: 13px; color: var(--ink2); line-height: 1.7; margin-bottom: 12px; }
+.modal select { width: 100%; font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 8px 10px; border: 1px solid var(--warm); border-radius: 7px; background: var(--cream); color: var(--ink); outline: none; margin-bottom: 10px; }
+.modal select:focus { border-color: var(--gold); }
+.clist { display: flex; flex-direction: column; gap: 5px; max-height: 160px; overflow-y: auto; margin-bottom: 12px; }
+.ctag { display: flex; align-items: center; gap: 8px; background: var(--red-l); border: 1px solid #F5C6C2; border-radius: 7px; padding: 5px 10px; font-size: 12px; }
+.ctag span { flex: 1; color: var(--red); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ctag button { background: none; border: none; color: var(--red); font-size: 16px; padding: 0 2px; cursor: pointer; flex-shrink: 0; }
+.modal-btns { display: flex; gap: 8px; justify-content: flex-end; }
+
+@media print {
+  header, .toolbar, .sidebar { display: none !important; }
+  .layout { display: block; }
+  .canvas-wrap { overflow: visible; }
+  #canvas { width: auto; height: auto; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="logo">Plan de table — <em>Mariage</em></span>
+  <div class="hsep"></div>
+  <div class="hstat"><strong id="hP">0</strong>placés</div>
+  <div class="hstat"><strong id="hT">0</strong>convives</div>
+  <div class="hstat"><strong id="hF">0</strong>libres</div>
+  <div class="hstat" id="hCW" style="display:none"><strong id="hC" style="color:#F09595">0</strong>conflits</div>
+  <div class="spacer"></div>
+  <span class="npill" id="npill">● Notion</span>
+</header>
+
+<div class="toolbar">
+  <span class="tlabel">Ajouter :</span>
+  <button class="tbtn" onclick="addTable('oval',10)">⬭ Ovale 10</button>
+  <button class="tbtn" onclick="addTable('rect',14)">▭ Rect. 14</button>
+  <button class="tbtn" onclick="addTable('oval',8)">⬭ Ovale 8</button>
+  <button class="tbtn" onclick="addTable('rect',6)">▭ Rect. 6</button>
+  <div class="tsep"></div>
+  <button class="tbtn gold" onclick="autoPlace()">✦ Placement auto</button>
+  <button class="tbtn" onclick="openConstraint()">✗ Contraintes</button>
+  <button class="tbtn" onclick="window.print()">⎙ Imprimer</button>
+  <div class="tsep"></div>
+  <button class="tbtn save" id="btnSave" onclick="saveNotion()">↑ Sauvegarder Notion</button>
+  <button class="tbtn load" id="btnLoad" onclick="loadNotion()">↓ Charger Notion</button>
+  <div class="tstats">
+    <span><strong id="tP">0</strong> / <strong id="tT">0</strong> placés</span>
+    <span><strong id="tF">0</strong> places libres</span>
+  </div>
+</div>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sb-sec">
+      <h3>Ajouter un convive</h3>
+      <div class="add-row">
+        <input type="text" id="gi" placeholder="Prénom Nom" onkeydown="if(event.key==='Enter')addGuest()">
+        <button class="addbtn" onclick="addGuest()">+</button>
+      </div>
+      <button class="tbtn" style="width:100%;margin-top:8px;justify-content:center" onclick="document.getElementById('importModal').classList.add('open')">📋 Importer une liste</button>
+    </div>
+    <div class="pool-hd">Non placés (<span id="uCnt">0</span>)</div>
+    <div class="hint">👆 Glissez un nom sur un siège · Glissez un siège pour le déplacer · Clic droit pour libérer</div>
+    <div class="conf-alert" id="cAlert"></div>
+    <div class="pool" id="pool"></div>
+  </aside>
+
+  <div class="canvas-wrap">
+    <div id="canvas"></div>
+  </div>
+</div>
+
+<!-- Modal import liste -->
+<div class="overlay" id="importModal">
+  <div class="modal">
+    <h3>Importer une liste de convives</h3>
+    <p>Collez votre liste ci-dessous, <strong>un nom par ligne</strong>. Les doublons et les noms déjà présents seront ignorés.</p>
+    <textarea id="importTxt" style="width:100%;height:160px;font-family:'DM Sans',sans-serif;font-size:13px;padding:10px;border:1px solid var(--warm);border-radius:8px;background:var(--cream);color:var(--ink);resize:vertical;outline:none;line-height:1.6" placeholder="Marie Dupont&#10;Jean Martin&#10;Sophie Lefebvre&#10;…"></textarea>
+    <p id="importPreview" style="font-size:12px;color:var(--ink3);margin-top:6px;margin-bottom:0"></p>
+    <div class="modal-btns" style="margin-top:14px">
+      <button class="tbtn" onclick="document.getElementById('importModal').classList.remove('open')">Annuler</button>
+      <button class="tbtn gold" onclick="importList()">Importer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal contraintes -->
+<div class="overlay" id="cModal">
+  <div class="modal">
+    <h3>Contraintes de placement</h3>
+    <p>Définissez les personnes qui ne doivent pas être assises à la même table. Leurs sièges apparaîtront en rouge.</p>
+    <select id="cA"><option value="">Choisir une personne…</option></select>
+    <select id="cB"><option value="">Ne pas asseoir avec…</option></select>
+    <div style="margin-bottom:12px">
+      <button class="tbtn gold" style="width:100%" onclick="addConstraint()">Ajouter cette contrainte</button>
+    </div>
+    <div class="clist" id="cList"></div>
+    <div class="modal-btns">
+      <button class="tbtn" onclick="document.getElementById('cModal').classList.remove('open')">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── CONFIG ──
+const NOTION_PAGE_ID = "364f0845-c058-81f9-8533-f6dc9ae3721f";
+
+// ── STATE ──
+const S = { guests: [], tables: [], constraints: [], tableCount: 0 };
+let dragGuest = null; // id dragged from pool
+let dragSeat  = null; // { gid, fromTid } dragged from a seat
+
+// ── UTILS ──
+function uid() { return Math.random().toString(36).slice(2,9) + Date.now().toString(36); }
+function gfirst(id) { const g = S.guests.find(x=>x.id===id); return g ? g.name.split(' ')[0] : '?'; }
+function gfull(id) { const g = S.guests.find(x=>x.id===id); return g ? g.name : '?'; }
+function clash(a,b) { return !!S.constraints.find(c=>(c.a===a&&c.b===b)||(c.a===b&&c.b===a)); }
+function hasSeatClash(gid,tid) { const t=S.tables.find(x=>x.id===tid); return t?t.seats.some(s=>s!==gid&&clash(gid,s)):false; }
+function countClashes() { let n=0; for(const t of S.tables) for(let i=0;i<t.seats.length;i++) for(let j=i+1;j<t.seats.length;j++) if(clash(t.seats[i],t.seats[j]))n++; return n; }
+
+// ── GEOMETRY ──
+// Returns seat positions around oval or rectangle
+// Seats are spaced further out so labels have room
+function tableLayout(shape, cap) {
+  if (shape === 'oval') {
+    const rx = cap <= 8 ? 62 : 78;
+    const ry = cap <= 8 ? 48 : 60;
+    const W = rx*2 + 130; // extra room for seat labels
+    const H = ry*2 + 90;
+    const seats = [];
+    for (let i = 0; i < cap; i++) {
+      const a = (2*Math.PI*i/cap) - Math.PI/2;
+      // distance factor: push seats far enough from table edge so labels don't overlap
+      const dist = 1.52;
+      seats.push({
+        sx: W/2 + rx*dist*Math.cos(a) - 55, // center label (label width ~110px -> offset 55)
+        sy: H/2 + ry*dist*Math.sin(a) - 13,
+      });
+    }
+    return { W, H, bx: W/2-rx, by: H/2-ry, bw: rx*2, bh: ry*2, seats };
+  } else {
+    // Rectangle: seats on top and bottom rows
+    const cols = Math.ceil(cap/2);
+    const seatW = 114; // label width
+    const gap = 8;
+    const bw = Math.max(160, cols*(seatW+gap) - gap);
+    const bh = 52;
+    const W = bw + 130;
+    const H = bh + 100;
+    const top = Math.ceil(cap/2), bot = Math.floor(cap/2);
+    const seats = [];
+    const topStart = (W - (top*(seatW+gap)-gap)) / 2;
+    const botStart = (W - (bot*(seatW+gap)-gap)) / 2;
+    for (let i=0;i<top;i++) seats.push({ sx: topStart + i*(seatW+gap), sy: -4 });
+    for (let i=0;i<bot;i++) seats.push({ sx: botStart + i*(seatW+gap), sy: H-22 });
+    return { W, H, bx: 65, by: 48, bw, bh, seats };
+  }
+}
+
+// ── TABLES ──
+function addTable(shape, cap, x, y) {
+  S.tableCount++;
+  const name = shape==='rect' ? `Table rect. ${S.tableCount}` : `Table ${S.tableCount}`;
+  S.tables.push({ id:uid(), name, shape, cap, seats:[], x:x||(80+Math.random()*700), y:y||(80+Math.random()*500) });
+  renderAll();
+}
+
+function deleteTable(id) {
+  const t = S.tables.find(x=>x.id===id);
+  if (!t || !confirm(`Supprimer "${t.name}" ?`)) return;
+  t.seats.forEach(sid => { const g=S.guests.find(x=>x.id===sid); if(g) g.tableId=null; });
+  S.tables = S.tables.filter(x=>x.id!==id);
+  renderAll();
+}
+
+// ── GUESTS ──
+function addGuest() {
+  const inp = document.getElementById('gi');
+  const name = inp.value.trim(); if (!name) return;
+  S.guests.push({ id:uid(), name, tableId:null });
+  inp.value=''; inp.focus();
+  renderAll();
+}
+
+function removeGuest(id) {
+  const g = S.guests.find(x=>x.id===id);
+  if (g && g.tableId) { const t=S.tables.find(x=>x.id===g.tableId); if(t) t.seats=t.seats.filter(s=>s!==id); }
+  S.guests = S.guests.filter(x=>x.id!==id);
+  S.constraints = S.constraints.filter(c=>c.a!==id&&c.b!==id);
+  renderAll();
+}
+
+// ── IMPORT LIST ──
+document.getElementById('importTxt').addEventListener('input', function() {
+  const names = this.value.split('\n').map(n=>n.trim()).filter(n=>n.length>0);
+  const newOnes = names.filter(n => !S.guests.find(g=>g.name.toLowerCase()===n.toLowerCase()));
+  document.getElementById('importPreview').textContent =
+    names.length ? `${names.length} nom(s) détecté(s), ${newOnes.length} nouveau(x) à ajouter.` : '';
+});
+
+function importList() {
+  const txt = document.getElementById('importTxt').value;
+  const names = txt.split('\n').map(n=>n.trim()).filter(n=>n.length>0);
+  let added = 0;
+  for (const name of names) {
+    if (!S.guests.find(g=>g.name.toLowerCase()===name.toLowerCase())) {
+      S.guests.push({ id:uid(), name, tableId:null });
+      added++;
+    }
+  }
+  document.getElementById('importTxt').value = '';
+  document.getElementById('importPreview').textContent = '';
+  document.getElementById('importModal').classList.remove('open');
+  renderAll();
+  if (added > 0) setPill('ok', `+${added} convives`);
+  setTimeout(()=>setPill('','● Notion'), 2500);
+}
+
+
+function placeGuest(gid, tid) {
+  const g = S.guests.find(x=>x.id===gid);
+  const t = S.tables.find(x=>x.id===tid);
+  if (!g || !t) return;
+  if (t.seats.length >= t.cap) { setPill('err','Table complète !'); setTimeout(()=>setPill('','● Notion'),2500); return; }
+  // Remove from old table
+  if (g.tableId) {
+    const old = S.tables.find(x=>x.id===g.tableId);
+    if (old) old.seats = old.seats.filter(s=>s!==gid);
+  }
+  g.tableId = tid;
+  if (!t.seats.includes(gid)) t.seats.push(gid);
+  renderAll();
+}
+
+function removeSeat(gid, tid) {
+  const t=S.tables.find(x=>x.id===tid), g=S.guests.find(x=>x.id===gid);
+  if (t) t.seats=t.seats.filter(s=>s!==gid);
+  if (g) g.tableId=null;
+  renderAll();
+}
+
+// ── AUTO PLACE ──
+function autoPlace() {
+  const unplaced = S.guests.filter(g=>!g.tableId);
+  if (!unplaced.length) { alert('Tous les convives sont déjà placés !'); return; }
+  for (const g of unplaced) {
+    let best = null;
+    // Prefer table with no clashes
+    for (const t of S.tables) { if (t.seats.length<t.cap && !t.seats.some(s=>clash(g.id,s))) { best=t; break; } }
+    // Fallback: any table with space
+    if (!best) for (const t of S.tables) { if (t.seats.length<t.cap) { best=t; break; } }
+    if (best) { g.tableId=best.id; best.seats.push(g.id); }
+  }
+  renderAll();
+}
+
+// ── CONSTRAINTS ──
+function openConstraint() {
+  const opts = S.guests.map(g=>`<option value="${g.id}">${g.name}</option>`).join('');
+  document.getElementById('cA').innerHTML = '<option value="">Choisir une personne…</option>'+opts;
+  document.getElementById('cB').innerHTML = '<option value="">Ne pas asseoir avec…</option>'+opts;
+  renderCList();
+  document.getElementById('cModal').classList.add('open');
+}
+function addConstraint() {
+  const a=document.getElementById('cA').value, b=document.getElementById('cB').value;
+  if (!a||!b||a===b) return;
+  if (S.constraints.find(c=>(c.a===a&&c.b===b)||(c.a===b&&c.b===a))) return;
+  S.constraints.push({a,b}); renderCList(); renderAll();
+}
+function removeConstraint(i) { S.constraints.splice(i,1); renderCList(); renderAll(); }
+function renderCList() {
+  document.getElementById('cList').innerHTML = S.constraints.length===0
+    ? '<p style="font-size:12px;color:var(--ink3);font-style:italic;margin:0">Aucune contrainte définie</p>'
+    : S.constraints.map((c,i)=>`
+      <div class="ctag">
+        <span>${gfull(c.a)} ✗ ${gfull(c.b)}</span>
+        <button onclick="removeConstraint(${i})" title="Supprimer">×</button>
+      </div>`).join('');
+}
+
+// ── RENDER ──
+function renderAll() { renderPool(); renderTables(); renderStats(); }
+
+function renderPool() {
+  document.getElementById('uCnt').textContent = S.guests.filter(g=>!g.tableId).length;
+  document.getElementById('pool').innerHTML = S.guests.map(g=>`
+    <div class="chip${g.tableId?' placed':''}"
+      draggable="${!g.tableId}"
+      ondragstart="onChipDragStart(event,'${g.id}')"
+      ondragend="onChipDragEnd(event)">
+      ${g.name}
+      <span class="cx" onclick="removeGuest('${g.id}')">×</span>
+    </div>`).join('');
+}
+
+function onChipDragStart(e, id) {
+  dragGuest = id;
+  e.dataTransfer.effectAllowed = 'move';
+  // mark chip as dragging
+  setTimeout(()=>{
+    document.querySelectorAll('.chip').forEach(c=>{
+      if(c.querySelector('.cx') && c.innerHTML.includes(id)) c.classList.add('dragging');
+    });
+  },0);
+}
+function onChipDragEnd(e) {
+  dragGuest = null;
+  document.querySelectorAll('.chip.dragging').forEach(c=>c.classList.remove('dragging'));
+}
+
+function renderTables() {
+  const cv = document.getElementById('canvas');
+  cv.innerHTML = '';
+
+  for (const t of S.tables) {
+    const lay = tableLayout(t.shape, t.cap);
+
+    const grp = document.createElement('div');
+    grp.className = 'tg';
+    grp.style.cssText = `left:${t.x}px;top:${t.y}px;width:${lay.W}px;height:${lay.H}px`;
+
+    // Delete button
+    const del = document.createElement('button');
+    del.className = 'tdel'; del.innerHTML = '×'; del.title = 'Supprimer la table';
+    del.addEventListener('click', () => deleteTable(t.id));
+    grp.appendChild(del);
+
+    // Table body
+    const body = document.createElement('div');
+    body.className = `tbody ${t.shape}`;
+    body.style.cssText = `left:${lay.bx}px;top:${lay.by}px;width:${lay.bw}px;height:${lay.bh}px`;
+
+    // Drop target on body
+    body.addEventListener('dragover', e => { e.preventDefault(); body.classList.add('dragover'); });
+    body.addEventListener('dragleave', () => body.classList.remove('dragover'));
+    body.addEventListener('drop', e => {
+      e.preventDefault(); body.classList.remove('dragover');
+      if (dragGuest) placeGuest(dragGuest, t.id);
+    });
+
+    // Name + count
+    const lbl = document.createElement('div'); lbl.className='tname'; lbl.textContent=t.name; body.appendChild(lbl);
+    const cap = document.createElement('div'); cap.className='tcap'; cap.textContent=`${t.seats.length}/${t.cap}`; body.appendChild(cap);
+
+    // Progress bar
+    const prog = document.createElement('div'); prog.className='tprog';
+    const fill = document.createElement('div');
+    fill.className = 'tprog-fill'+(t.seats.length>=t.cap?' full':'');
+    fill.style.width = Math.round(t.seats.length/t.cap*100)+'%';
+    prog.appendChild(fill); body.appendChild(prog);
+
+    // Drag to move table — only triggered on body, not on seat labels
+    let ox,oy,mx,my,moving=false;
+    body.addEventListener('mousedown', e => {
+      if (e.button!==0) return;
+      e.preventDefault(); e.stopPropagation();
+      ox=t.x; oy=t.y; mx=e.clientX; my=e.clientY; moving=false;
+      const mm = ev => {
+        const dx=ev.clientX-mx, dy=ev.clientY-my;
+        if (!moving && Math.abs(dx)+Math.abs(dy)<4) return;
+        moving=true;
+        t.x=Math.max(0,ox+dx); t.y=Math.max(0,oy+dy);
+        grp.style.left=t.x+'px'; grp.style.top=t.y+'px';
+      };
+      const mu = () => { document.removeEventListener('mousemove',mm); document.removeEventListener('mouseup',mu); };
+      document.addEventListener('mousemove',mm);
+      document.addEventListener('mouseup',mu);
+    });
+
+    grp.appendChild(body);
+
+    // Seats
+    lay.seats.forEach((s,i) => {
+      const gid = t.seats[i] || null;
+      const sw = document.createElement('div');
+      sw.className = 'seat';
+      sw.style.cssText = `left:${s.sx}px;top:${s.sy}px;width:110px;height:26px`;
+
+      const sl = document.createElement('div');
+      const conflict = gid && hasSeatClash(gid, t.id);
+      sl.className = `slabel${gid?' occ':'  empty'}${conflict?' conflict':''}`;
+      sl.textContent = gid ? gfull(gid) : 'libre'; // show FULL name
+      sl.title = gid ? gfull(gid)+(conflict?' ⚠ conflit avec un voisin':'') : 'Glissez un convive ici';
+
+    // Seats
+    lay.seats.forEach((s,i) => {
+      const gid = t.seats[i] || null;
+      const sw = document.createElement('div');
+      sw.className = 'seat';
+      sw.style.cssText = `left:${s.sx}px;top:${s.sy}px;width:110px;height:26px`;
+
+      const sl = document.createElement('div');
+      const conflict = gid && hasSeatClash(gid, t.id);
+      sl.className = `slabel${gid?' occ':'  empty'}${conflict?' conflict':''}`;
+      sl.textContent = gid ? gfull(gid) : 'libre';
+      sl.title = gid ? gfull(gid)+(conflict?' ⚠ conflit avec un voisin':'') : 'Glissez un convive ici';
+
+      if (gid) {
+        // Draggable depuis le siège vers un autre siège/table
+        sl.draggable = true;
+        sl.addEventListener('dragstart', e => {
+          dragSeat = { gid, fromTid: t.id };
+          dragGuest = null;
+          e.dataTransfer.effectAllowed = 'move';
+          setTimeout(() => sl.classList.add('dragging-seat'), 0);
+        });
+        sl.addEventListener('dragend', () => {
+          dragSeat = null;
+          sl.classList.remove('dragging-seat');
+        });
+        // Clic droit pour libérer le siège
+        sl.addEventListener('contextmenu', e => {
+          e.preventDefault();
+          removeSeat(gid, t.id);
+        });
+      }
+
+      // Drop sur ce siège : depuis pool ou depuis un autre siège
+      sl.addEventListener('dragover', e => { e.preventDefault(); sl.classList.add('dov'); });
+      sl.addEventListener('dragleave', () => sl.classList.remove('dov'));
+      sl.addEventListener('drop', e => {
+        e.preventDefault(); sl.classList.remove('dov');
+        if (dragGuest) {
+          // Depuis le pool : si siège occupé, swap avec pool
+          if (gid) removeSeat(gid, t.id);
+          placeGuest(dragGuest, t.id);
+        } else if (dragSeat && dragSeat.gid !== gid) {
+          // Depuis un autre siège : on déplace
+          const movingGid = dragSeat.gid;
+          const fromTid = dragSeat.fromTid;
+          dragSeat = null;
+          // Retirer de l'ancien siège
+          const fromT = S.tables.find(x=>x.id===fromTid);
+          if (fromT) fromT.seats = fromT.seats.filter(s=>s!==movingGid);
+          const movingG = S.guests.find(x=>x.id===movingGid);
+          if (movingG) movingG.tableId = null;
+          // Si siège cible occupé, libérer aussi
+          if (gid) removeSeat(gid, t.id);
+          // Placer
+          placeGuest(movingGid, t.id);
+        }
+      });
+
+      sw.appendChild(sl);
+      grp.appendChild(sw);
+    });
+
+    cv.appendChild(grp);
+  }
+}
+
+function renderStats() {
+  const placed = S.guests.filter(g=>g.tableId).length;
+  const total = S.guests.length;
+  const free = S.tables.reduce((s,t)=>s+t.cap,0)-placed;
+  const conf = countClashes();
+  document.getElementById('hP').textContent = placed;
+  document.getElementById('hT').textContent = total;
+  document.getElementById('hF').textContent = free;
+  document.getElementById('tP').textContent = placed;
+  document.getElementById('tT').textContent = total;
+  document.getElementById('tF').textContent = free;
+  document.getElementById('hC').textContent = conf;
+  document.getElementById('hCW').style.display = conf>0?'':'none';
+  const ca=document.getElementById('cAlert');
+  if (conf>0){ca.style.display='block';ca.textContent=`⚠ ${conf} conflit${conf>1?'s':''} — sièges en rouge`;}
+  else ca.style.display='none';
+}
+
+// ── NOTION ──
+function setPill(type,text){
+  const p=document.getElementById('npill');
+  p.className='npill'+(type?' '+type:'');
+  p.textContent=text;
+}
+
+function stateToJSON(){
+  return JSON.stringify({
+    guests:S.guests,
+    tables:S.tables.map(t=>({...t})),
+    constraints:S.constraints,
+    tableCount:S.tableCount,
+    __version:2,
+    __saved:new Date().toISOString()
+  },null,2);
+}
+
+async function saveNotion(){
+  document.getElementById('btnSave').disabled=true;
+  setPill('busy','⟳ Sauvegarde…');
+  try {
+    const data=stateToJSON();
+    const res=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        model:"claude-sonnet-4-20250514",
+        max_tokens:1000,
+        system:"You update a Notion page. Respond ONLY with JSON: {\"ok\":true} or {\"ok\":false,\"error\":\"...\"}",
+        messages:[{role:"user",content:`Update Notion page ID "${NOTION_PAGE_ID}". Replace all content with exactly this:\n\n> Cette page est utilisée par l'outil plan de table. Ne pas modifier manuellement.\n\n\`\`\`json\n${data}\n\`\`\``}],
+        mcp_servers:[{type:"url",url:"https://mcp.notion.com/mcp",name:"notion"}]
+      })
+    });
+    const d=await res.json();
+    const txt=(d.content||[]).map(x=>x.text||'').join('');
+    let r;
+    try{r=JSON.parse(txt.replace(/```json?|```/g,'').trim());}
+    catch(e){r={ok:txt.includes('"ok":true')||txt.includes('updated')||txt.includes('success')};}
+    if(r.ok!==false){setPill('ok','✓ Sauvegardé');setTimeout(()=>setPill('ok','● Notion ✓'),3000);}
+    else throw new Error(r.error||'Erreur inconnue');
+  }catch(e){
+    setPill('err','✗ Erreur'); alert('Erreur sauvegarde:\n'+e.message);
+    setTimeout(()=>setPill('','● Notion'),3000);
+  }
+  document.getElementById('btnSave').disabled=false;
+}
+
+async function loadNotion(){
+  document.getElementById('btnLoad').disabled=true;
+  setPill('busy','⟳ Chargement…');
+  try{
+    const res=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        model:"claude-sonnet-4-20250514",
+        max_tokens:8000,
+        system:"Fetch the Notion page and return ONLY the raw JSON from the code block. No markdown, no explanation.",
+        messages:[{role:"user",content:`Fetch Notion page "${NOTION_PAGE_ID}" and return only the JSON object from its code block.`}],
+        mcp_servers:[{type:"url",url:"https://mcp.notion.com/mcp",name:"notion"}]
+      })
+    });
+    const d=await res.json();
+    const txt=(d.content||[]).map(x=>x.text||'').join('');
+    const clean=txt.replace(/```json?|```/g,'').trim();
+    const s=clean.indexOf('{'),e=clean.lastIndexOf('}');
+    if(s===-1)throw new Error('Aucune donnée dans Notion');
+    const parsed=JSON.parse(clean.slice(s,e+1));
+    if(!parsed.guests)throw new Error('Format invalide');
+    S.guests=parsed.guests;
+    S.tables=parsed.tables||[];
+    S.constraints=parsed.constraints||[];
+    S.tableCount=parsed.tableCount||0;
+    renderAll();
+    setPill('ok','✓ Chargé');
+    setTimeout(()=>setPill('ok','● Notion ✓'),3000);
+  }catch(e){
+    setPill('err','✗ Erreur'); alert('Erreur chargement:\n'+e.message);
+    setTimeout(()=>setPill('','● Notion'),3000);
+  }
+  document.getElementById('btnLoad').disabled=false;
+}
+
+// ── INIT : 11 tables ovales + 2 rectangulaires ──
+(function(){
+  const positions=[
+    [80,70],[320,70],[560,70],[800,70],
+    [80,310],[320,310],[560,310],[800,310],
+    [80,550],[320,550],[560,550]
+  ];
+  positions.forEach((p,i)=>{
+    S.tableCount++;
+    S.tables.push({id:uid(),name:`Table ${S.tableCount}`,shape:'oval',cap:10,seats:[],x:p[0],y:p[1]});
+  });
+  for(let i=0;i<2;i++){
+    S.tableCount++;
+    S.tables.push({id:uid(),name:`Table rect. ${S.tableCount}`,shape:'rect',cap:14,seats:[],x:1080,y:70+i*310});
+  }
+  renderAll();
+  setPill('','● Notion');
+})();
+</script>
+</body>
+</html>
