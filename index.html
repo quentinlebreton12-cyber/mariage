@@ -4,725 +4,678 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Plan de table — Mariage</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --cream:#FAF8F4; --warm:#EDE5D8;
-  --gold:#C8A96A; --gold-d:#8B6A1F; --gold-l:#EDD9A3;
-  --ink:#28251E; --ink2:#5A5448; --ink3:#9A9080;
+:root{
+  --cream:#FAF8F4;--warm:#EDE5D8;
+  --gold:#C8A96A;--gold-d:#8B6A1F;--gold-l:#F5E9C8;
+  --ink:#28251E;--ink3:#9A9080;
   --white:#FFFFFF;
-  --green:#2D6A4F; --green-l:#D8F0E4; --green-b:#5DCAA5;
-  --red:#B83232; --red-l:#FDEAEA; --red-b:#F09595;
-  --blue-l:#EAF2FC; --blue:#2563A8;
-  --shadow:0 2px 16px rgba(40,37,30,.08);
-  --shadow-lg:0 8px 40px rgba(40,37,30,.14);
+  --green:#2D6A4F;--green-l:#D8F0E4;--green-b:#5DCAA5;
+  --red:#B83232;--red-l:#FDEAEA;--red-b:#F09595;
+  --blue-l:#EAF2FC;--blue:#2563A8;
+  --sh:0 2px 12px rgba(40,37,30,.09);
+  --sh2:0 6px 32px rgba(40,37,30,.15);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow:hidden}
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);display:flex;flex-direction:column}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);display:flex;flex-direction:column;-webkit-user-select:none;user-select:none}
 
-header{height:52px;flex-shrink:0;background:var(--ink);display:flex;align-items:center;gap:10px;padding:0 16px;box-shadow:0 2px 12px rgba(0,0,0,.3);z-index:20}
-.logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--cream);letter-spacing:.04em}
+/* HEADER */
+header{height:50px;flex-shrink:0;background:var(--ink);display:flex;align-items:center;gap:10px;padding:0 16px;z-index:20;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.logo{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;color:var(--cream);letter-spacing:.04em;flex-shrink:0}
 .logo em{color:var(--gold);font-style:italic}
-.hsep{width:1px;height:22px;background:rgba(255,255,255,.12);margin:0 4px;flex-shrink:0}
-.hstat{font-size:11px;color:rgba(255,255,255,.45);line-height:1.25}
-.hstat strong{font-size:14px;font-weight:500;color:var(--gold-l);display:block}
-.spacer{flex:1}
-.save-badge{font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.55);background:rgba(255,255,255,.06);white-space:nowrap}
-.save-badge.ok{border-color:var(--green-b);color:var(--green-b);background:rgba(93,202,165,.1)}
+.sep{width:1px;height:20px;background:rgba(255,255,255,.12);flex-shrink:0}
+.hst{font-size:11px;color:rgba(255,255,255,.45);line-height:1.2}
+.hst b{font-size:13px;font-weight:500;color:#EDD9A3;display:block}
+.sp{flex:1}
+.badge{font-size:11px;padding:3px 11px;border-radius:20px;border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.5);white-space:nowrap;transition:all .3s}
+.badge.ok{border-color:var(--green-b);color:var(--green-b)}
 
-.toolbar{flex-shrink:0;background:var(--white);border-bottom:1px solid var(--warm);padding:7px 14px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;z-index:10}
-.tlabel{font-size:11px;color:var(--ink3);font-weight:500;letter-spacing:.05em;text-transform:uppercase;flex-shrink:0}
-.tbtn{font-family:'DM Sans',sans-serif;font-size:12px;padding:5px 12px;border-radius:7px;cursor:pointer;border:1px solid var(--warm);background:var(--white);color:var(--ink);transition:all .15s;white-space:nowrap}
-.tbtn:hover{background:var(--warm);border-color:var(--gold-l)}
-.tbtn.gold{background:var(--gold);color:var(--ink);border-color:var(--gold);font-weight:500}
-.tbtn.gold:hover{background:var(--gold-d);color:#fff}
-.tbtn.save{background:var(--green);color:#fff;border-color:var(--green)}
-.tbtn.save:hover{background:#1A4D39}
-.tsep{width:1px;height:20px;background:var(--warm);margin:0 2px;flex-shrink:0}
-.tstats{margin-left:auto;font-size:12px;color:var(--ink3);display:flex;gap:14px}
-.tstats strong{color:var(--ink);font-weight:500}
+/* TOOLBAR */
+.tb{flex-shrink:0;background:var(--white);border-bottom:1px solid var(--warm);padding:6px 14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;z-index:10}
+.tbl{font-size:11px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.05em;flex-shrink:0}
+.btn{font-family:'DM Sans',sans-serif;font-size:12px;padding:5px 11px;border-radius:7px;cursor:pointer;border:1px solid var(--warm);background:var(--white);color:var(--ink);transition:all .15s;white-space:nowrap;flex-shrink:0}
+.btn:hover{background:var(--warm)}
+.btn.gold{background:var(--gold);color:var(--ink);border-color:var(--gold);font-weight:500}
+.btn.gold:hover{background:var(--gold-d);color:#fff}
+.btn.red{color:var(--red);border-color:var(--red-b)}
+.btn.red:hover{background:var(--red-l)}
+.tsep{width:1px;height:18px;background:var(--warm);flex-shrink:0}
+.stats{margin-left:auto;font-size:12px;color:var(--ink3);display:flex;gap:12px;flex-shrink:0}
+.stats b{color:var(--ink);font-weight:500}
 
-.layout{flex:1;display:flex;min-height:0;overflow:hidden}
+/* LAYOUT */
+.lay{flex:1;display:flex;min-height:0;overflow:hidden}
 
-.sidebar{width:240px;flex-shrink:0;background:var(--white);border-right:1px solid var(--warm);display:flex;flex-direction:column;overflow:hidden}
-.sb-sec{padding:14px;border-bottom:1px solid var(--warm)}
-.sb-sec h3{font-family:'Cormorant Garamond',serif;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--gold-d);margin-bottom:9px}
-.add-row{display:flex;gap:6px}
-.add-row input{flex:1;font-family:'DM Sans',sans-serif;font-size:13px;padding:7px 10px;border:1px solid var(--warm);border-radius:7px;background:var(--cream);color:var(--ink);outline:none;transition:border-color .2s;min-width:0}
-.add-row input:focus{border-color:var(--gold)}
-.addbtn{background:var(--ink);color:var(--cream);border:1px solid var(--ink);border-radius:7px;padding:7px 13px;font-size:18px;line-height:1;cursor:pointer;transition:background .15s;font-family:'DM Sans',sans-serif}
-.addbtn:hover{background:var(--gold-d);border-color:var(--gold-d)}
-.pool-hd{padding:9px 14px 6px;font-size:11px;font-weight:500;color:var(--ink3);text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--warm);flex-shrink:0}
+/* SIDEBAR */
+.sb{width:230px;flex-shrink:0;background:var(--white);border-right:1px solid var(--warm);display:flex;flex-direction:column;overflow:hidden}
+.sb-s{padding:12px;border-bottom:1px solid var(--warm)}
+.sb-s h3{font-family:'Cormorant Garamond',serif;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--gold-d);margin-bottom:8px}
+.row{display:flex;gap:5px}
+.row input{flex:1;font-family:'DM Sans',sans-serif;font-size:13px;padding:6px 9px;border:1px solid var(--warm);border-radius:7px;background:var(--cream);color:var(--ink);outline:none;min-width:0}
+.row input:focus{border-color:var(--gold)}
+.addb{background:var(--ink);color:var(--cream);border:none;border-radius:7px;padding:6px 12px;font-size:17px;cursor:pointer;transition:background .15s}
+.addb:hover{background:var(--gold-d)}
+.ph{padding:8px 12px 5px;font-size:10px;font-weight:500;color:var(--ink3);text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--warm);flex-shrink:0}
 .hint{padding:7px 12px;background:var(--blue-l);border-bottom:1px solid #B5D4F4;font-size:11px;color:var(--blue);flex-shrink:0;line-height:1.6}
-.conf-alert{padding:7px 12px;background:var(--red-l);border-bottom:1px solid #F5C6C2;font-size:11px;color:var(--red);display:none;flex-shrink:0}
-.pool{flex:1;overflow-y:auto;padding:8px;display:flex;flex-wrap:wrap;gap:5px;align-content:flex-start}
-.chip{background:var(--cream);border:1px solid var(--warm);border-radius:20px;padding:4px 10px;font-size:12px;display:flex;align-items:center;gap:5px;cursor:grab;user-select:none;transition:all .15s;white-space:nowrap}
-.chip:hover{border-color:var(--gold);background:var(--warm)}
-.chip.placed{opacity:.28;pointer-events:none}
-.chip .cx{cursor:pointer;color:var(--ink3);font-size:14px;line-height:1;pointer-events:all}
-.chip .cx:hover{color:var(--red)}
+.calert{padding:6px 12px;background:var(--red-l);border-bottom:1px solid var(--red-b);font-size:11px;color:var(--red);display:none;flex-shrink:0}
+.pool{flex:1;overflow-y:auto;padding:7px;display:flex;flex-wrap:wrap;gap:4px;align-content:flex-start}
+.chip{background:var(--cream);border:1px solid var(--warm);border-radius:20px;padding:3px 9px;font-size:12px;display:flex;align-items:center;gap:4px;cursor:grab;white-space:nowrap;transition:border-color .15s}
+.chip:hover{border-color:var(--gold)}
+.chip.placed{opacity:.25;pointer-events:none}
+.chip .x{color:var(--ink3);font-size:14px;line-height:1;cursor:pointer;pointer-events:all}
+.chip .x:hover{color:var(--red)}
 
-.canvas-wrap{flex:1;overflow:auto;position:relative;background-color:var(--cream);background-image:radial-gradient(circle,rgba(200,169,106,.2) 1px,transparent 1px);background-size:28px 28px}
-#canvas{position:relative;width:2400px;height:1400px}
+/* CANVAS */
+.cw{flex:1;overflow:auto;background:var(--cream);background-image:radial-gradient(circle,rgba(200,169,106,.18) 1px,transparent 1px);background-size:26px 26px;position:relative}
+#cv{position:relative;width:2600px;height:1600px}
 
-/* ── GHOST label suivant la souris ── */
+/* TABLE GROUP */
+.tg{position:absolute}
+.tg:hover .tdel{display:flex}
+
+/* TABLE BODY */
+.tb2{position:absolute;border:2px solid var(--warm);background:var(--white);display:flex;align-items:center;justify-content:center;flex-direction:column;cursor:move;box-shadow:var(--sh);transition:border-color .15s}
+.tb2.oval{border-radius:50%}
+.tb2.rect{border-radius:12px}
+.tb2.dov{border-color:var(--green)!important;box-shadow:0 0 0 3px rgba(45,106,79,.12)!important}
+.tn{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:600;color:var(--ink);pointer-events:none;text-align:center;padding:0 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:90%}
+.tc{font-size:10px;color:var(--ink3);pointer-events:none}
+.tpb{position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:34px;height:3px;background:var(--warm);border-radius:2px;overflow:hidden;pointer-events:none}
+.tpf{height:100%;border-radius:2px;background:var(--gold);transition:width .3s}
+.tpf.full{background:var(--green)}
+.tdel{position:absolute;top:-9px;right:-9px;width:20px;height:20px;background:var(--red-l);border:1px solid var(--red-b);color:var(--red);border-radius:50%;font-size:14px;display:none;align-items:center;justify-content:center;cursor:pointer;z-index:10;font-family:sans-serif;line-height:1}
+
+/* SEAT */
+.seat{position:absolute;display:flex;align-items:center;justify-content:center}
+/* chaque siège fait 130×26 pour avoir de la place */
+.sl{
+  width:130px;height:24px;
+  font-size:11px;border-radius:14px;padding:0 10px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  text-align:center;line-height:24px;
+  background:var(--cream);border:1px solid var(--warm);
+  box-shadow:0 1px 3px rgba(40,37,30,.06);
+  transition:border-color .15s,background .15s;
+  cursor:default;
+}
+.sl.empty{border-style:dashed;color:var(--ink3);font-style:italic;font-size:10px}
+.sl.occ{font-weight:500;color:var(--ink);cursor:grab}
+.sl.occ:hover{border-color:var(--gold);background:var(--gold-l)}
+.sl.lifting{opacity:.25}
+.sl.dov{background:var(--green-l)!important;border-color:var(--green-b)!important;border-style:solid!important}
+.sl.conflict{background:var(--red-l);border-color:var(--red-b);color:var(--red)}
+
+/* GHOST */
 #ghost{
   position:fixed;pointer-events:none;z-index:9999;
   background:var(--gold-l);border:1.5px solid var(--gold);border-radius:14px;
-  padding:3px 12px;font-size:11px;font-weight:500;font-family:'DM Sans',sans-serif;
-  color:var(--ink);white-space:nowrap;box-shadow:var(--shadow-lg);
-  opacity:0;transition:opacity .1s;
+  padding:3px 14px;font-size:11px;font-weight:500;color:var(--ink);
+  white-space:nowrap;box-shadow:var(--sh2);opacity:0;transition:opacity .1s;
+  font-family:'DM Sans',sans-serif;
 }
 
-.tg{position:absolute;user-select:none}
+/* MODALS */
+.ov{position:fixed;inset:0;background:rgba(40,37,30,.38);z-index:200;display:none;align-items:center;justify-content:center;backdrop-filter:blur(3px)}
+.ov.open{display:flex}
+.mo{background:var(--white);border-radius:16px;padding:24px;max-width:460px;width:92%;box-shadow:var(--sh2)}
+.mo h3{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;margin-bottom:10px}
+.mo p{font-size:13px;color:#5A5448;line-height:1.7;margin-bottom:10px}
+.mo select{width:100%;font-family:'DM Sans',sans-serif;font-size:13px;padding:7px 9px;border:1px solid var(--warm);border-radius:7px;background:var(--cream);color:var(--ink);outline:none;margin-bottom:9px}
+.mo textarea{width:100%;height:150px;font-family:'DM Sans',sans-serif;font-size:13px;padding:9px;border:1px solid var(--warm);border-radius:7px;background:var(--cream);color:var(--ink);resize:vertical;outline:none;line-height:1.6}
+.cl{display:flex;flex-direction:column;gap:4px;max-height:140px;overflow-y:auto;margin-bottom:10px}
+.ct{display:flex;align-items:center;gap:7px;background:var(--red-l);border:1px solid #F5C6C2;border-radius:7px;padding:4px 9px;font-size:12px}
+.ct span{flex:1;color:var(--red);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ct button{background:none;border:none;color:var(--red);font-size:15px;cursor:pointer;padding:0 2px}
+.mbtns{display:flex;gap:7px;justify-content:flex-end;margin-top:12px}
+.prev{font-size:12px;color:var(--ink3);margin-top:5px}
 
-.tbody{position:absolute;border:2px solid var(--warm);background:var(--white);
-  display:flex;align-items:center;justify-content:center;flex-direction:column;
-  cursor:move;z-index:2;box-shadow:var(--shadow);transition:border-color .2s,box-shadow .2s}
-.tbody.oval{border-radius:50%}
-.tbody.rect{border-radius:14px}
-.tbody.drop-target{border-color:var(--green)!important;box-shadow:0 0 0 4px rgba(45,106,79,.15)!important}
-
-.tname{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:600;color:var(--ink);
-  text-align:center;padding:2px 10px;pointer-events:none;max-width:90%;
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.tcap{font-size:10px;color:var(--ink3);pointer-events:none}
-.tprog{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);
-  width:36px;height:3px;background:var(--warm);border-radius:2px;overflow:hidden;pointer-events:none}
-.tprog-fill{height:100%;border-radius:2px;background:var(--gold);transition:width .3s}
-.tprog-fill.full{background:var(--green)}
-.tdel{position:absolute;top:-10px;right:-10px;width:22px;height:22px;
-  background:var(--red-l);border:1px solid var(--red-b);color:var(--red);
-  border-radius:50%;font-size:15px;line-height:1;padding:0;
-  display:none;align-items:center;justify-content:center;cursor:pointer;z-index:10;
-  font-family:'DM Sans',sans-serif}
-.tg:hover .tdel{display:flex}
-
-.seat{position:absolute;z-index:3;display:flex;align-items:center;justify-content:center}
-.slabel{
-  font-size:11px;background:var(--cream);border:1px solid var(--warm);border-radius:14px;
-  padding:3px 10px;white-space:nowrap;width:120px;
-  overflow:hidden;text-overflow:ellipsis;
-  text-align:center;line-height:1.4;
-  box-shadow:0 1px 4px rgba(40,37,30,.06);
-  user-select:none;
-}
-.slabel.empty{border-style:dashed;color:var(--ink3);font-style:italic;font-size:10px;cursor:default}
-.slabel.occ{font-weight:500;color:var(--ink);cursor:grab}
-.slabel.occ:hover{background:var(--gold-l);border-color:var(--gold)}
-.slabel.occ.lifting{opacity:.3;cursor:grabbing}
-.slabel.conflict{background:var(--red-l);border-color:var(--red-b);color:var(--red)}
-.slabel.drop-here{background:var(--green-l);border-color:var(--green-b);border-style:solid}
-
-/* ── MODALS ── */
-.overlay{position:fixed;inset:0;background:rgba(40,37,30,.4);z-index:100;display:none;align-items:center;justify-content:center;backdrop-filter:blur(3px)}
-.overlay.open{display:flex}
-.modal{background:var(--white);border-radius:16px;padding:26px;max-width:480px;width:92%;box-shadow:var(--shadow-lg)}
-.modal h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;margin-bottom:12px}
-.modal p{font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:10px}
-.modal select{width:100%;font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 10px;border:1px solid var(--warm);border-radius:7px;background:var(--cream);color:var(--ink);outline:none;margin-bottom:10px}
-.modal select:focus{border-color:var(--gold)}
-.modal textarea{width:100%;height:160px;font-family:'DM Sans',sans-serif;font-size:13px;padding:10px;border:1px solid var(--warm);border-radius:8px;background:var(--cream);color:var(--ink);resize:vertical;outline:none;line-height:1.6}
-.modal textarea:focus{border-color:var(--gold)}
-.clist{display:flex;flex-direction:column;gap:5px;max-height:150px;overflow-y:auto;margin-bottom:12px}
-.ctag{display:flex;align-items:center;gap:8px;background:var(--red-l);border:1px solid #F5C6C2;border-radius:7px;padding:5px 10px;font-size:12px}
-.ctag span{flex:1;color:var(--red);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ctag button{background:none;border:none;color:var(--red);font-size:16px;padding:0 2px;cursor:pointer;flex-shrink:0;font-family:'DM Sans',sans-serif}
-.modal-btns{display:flex;gap:8px;justify-content:flex-end;margin-top:14px}
-.preview-txt{font-size:12px;color:var(--ink3);margin-top:6px}
-
-@media print{
-  header,.toolbar,.sidebar,#ghost{display:none!important}
-  .layout{display:block}
-  .canvas-wrap{overflow:visible}
-  #canvas{width:auto;height:auto}
-}
+@media print{header,.tb,.sb,#ghost{display:none!important}.lay{display:block}.cw{overflow:visible}#cv{width:auto;height:auto}}
 </style>
 </head>
 <body>
 
 <header>
   <span class="logo">Plan de table — <em>Mariage</em></span>
-  <div class="hsep"></div>
-  <div class="hstat"><strong id="hP">0</strong>placés</div>
-  <div class="hstat"><strong id="hT">0</strong>convives</div>
-  <div class="hstat"><strong id="hF">0</strong>libres</div>
-  <div class="hstat" id="hCW" style="display:none"><strong id="hC" style="color:#F09595">0</strong>conflits</div>
-  <div class="spacer"></div>
-  <span class="save-badge" id="saveBadge">💾 Sauvegarde auto</span>
+  <div class="sep"></div>
+  <div class="hst"><b id="hP">0</b>placés</div>
+  <div class="hst"><b id="hT">0</b>convives</div>
+  <div class="hst"><b id="hF">0</b>libres</div>
+  <div class="hst" id="hCW" style="display:none"><b id="hC" style="color:#F09595">0</b>conflits</div>
+  <div class="sp"></div>
+  <span class="badge" id="badge">💾 Sauvegarde auto</span>
 </header>
 
-<div class="toolbar">
-  <span class="tlabel">Tables :</span>
-  <button class="tbtn" onclick="addTable('oval',10)">⬭ Ovale 10</button>
-  <button class="tbtn" onclick="addTable('rect',14)">▭ Rect. 14</button>
-  <button class="tbtn" onclick="addTable('oval',8)">⬭ Ovale 8</button>
-  <button class="tbtn" onclick="addTable('rect',6)">▭ Rect. 6</button>
+<div class="tb">
+  <span class="tbl">Ajouter :</span>
+  <button class="btn" onclick="addTable('oval',10)">⬭ Ovale 10</button>
+  <button class="btn" onclick="addTable('rect',14)">▭ Rect. 14</button>
+  <button class="btn" onclick="addTable('oval',8)">⬭ Ovale 8</button>
+  <button class="btn" onclick="addTable('rect',6)">▭ Rect. 6</button>
   <div class="tsep"></div>
-  <button class="tbtn gold" onclick="autoPlace()">✦ Placement auto</button>
-  <button class="tbtn" onclick="openConstraint()">✗ Contraintes</button>
-  <button class="tbtn" onclick="window.print()">⎙ Imprimer</button>
-  <button class="tbtn" onclick="exportCSV()">↓ Exporter CSV</button>
-  <div class="tsep"></div>
-  <button class="tbtn" style="color:var(--red);border-color:var(--red-b)" onclick="resetAll()">⟳ Réinitialiser</button>
-  <div class="tstats">
-    <span><strong id="tP">0</strong> / <strong id="tT">0</strong> placés</span>
-    <span><strong id="tF">0</strong> libres</span>
+  <button class="btn gold" onclick="autoPlace()">✦ Placement auto</button>
+  <button class="btn" onclick="openC()">✗ Contraintes</button>
+  <button class="btn" onclick="window.print()">⎙ Imprimer</button>
+  <button class="btn" onclick="exportCSV()">↓ CSV</button>
+  <button class="btn red" onclick="resetAll()">⟳ Réinitialiser</button>
+  <div class="stats">
+    <span><b id="tP">0</b>/<b id="tT">0</b> placés</span>
+    <span><b id="tF">0</b> libres</span>
   </div>
 </div>
 
-<div class="layout">
-  <aside class="sidebar">
-    <div class="sb-sec">
+<div class="lay">
+  <aside class="sb">
+    <div class="sb-s">
       <h3>Ajouter un convive</h3>
-      <div class="add-row">
-        <input type="text" id="gi" placeholder="Prénom Nom" onkeydown="if(event.key==='Enter')addGuest()">
-        <button class="addbtn" onclick="addGuest()">+</button>
+      <div class="row">
+        <input id="gi" placeholder="Prénom Nom" onkeydown="if(event.key==='Enter')addGuest()">
+        <button class="addb" onclick="addGuest()">+</button>
       </div>
-      <button class="tbtn" style="width:100%;margin-top:8px" onclick="document.getElementById('importModal').classList.add('open')">📋 Importer une liste</button>
+      <button class="btn" style="width:100%;margin-top:7px" onclick="document.getElementById('imod').classList.add('open')">📋 Importer une liste</button>
     </div>
-    <div class="sb-sec" style="padding-bottom:10px">
+    <div class="sb-s" style="padding-bottom:9px">
       <h3>Contraintes</h3>
-      <button class="tbtn" style="width:100%" onclick="openConstraint()">✗ Gérer les contraintes</button>
+      <button class="btn" style="width:100%" onclick="openC()">✗ Gérer</button>
     </div>
-    <div class="pool-hd">Non placés (<span id="uCnt">0</span>)</div>
-    <div class="hint">
-      👆 Glissez un nom sur un siège<br>
-      🔀 Glissez un siège occupé vers un autre<br>
-      🖱️ Clic droit sur un siège = libérer
-    </div>
-    <div class="conf-alert" id="cAlert"></div>
+    <div class="ph">Non placés (<span id="uCnt">0</span>)</div>
+    <div class="hint">👆 Glissez un nom sur un <b>siège précis</b><br>🔀 Glissez un siège occupé vers un autre<br>🖱️ Clic droit sur un siège = libérer</div>
+    <div class="calert" id="calert"></div>
     <div class="pool" id="pool"></div>
   </aside>
-  <div class="canvas-wrap" id="canvasWrap">
-    <div id="canvas"></div>
+
+  <div class="cw">
+    <div id="cv"></div>
   </div>
 </div>
 
-<!-- Ghost label (suit la souris pendant le drag) -->
 <div id="ghost"></div>
 
-<!-- Modal import -->
-<div class="overlay" id="importModal">
-  <div class="modal">
+<!-- Import modal -->
+<div class="ov" id="imod">
+  <div class="mo">
     <h3>Importer une liste</h3>
-    <p>Collez vos convives ci-dessous, <strong>un nom par ligne</strong>. Les doublons sont ignorés.</p>
-    <textarea id="importTxt" placeholder="Marie Dupont&#10;Jean Martin&#10;Sophie Lefebvre&#10;…"></textarea>
-    <p class="preview-txt" id="importPreview"></p>
-    <div class="modal-btns">
-      <button class="tbtn" onclick="document.getElementById('importModal').classList.remove('open')">Annuler</button>
-      <button class="tbtn gold" onclick="importList()">Importer</button>
+    <p>Un nom par ligne. Les doublons sont ignorés.</p>
+    <textarea id="itxt" placeholder="Marie Dupont&#10;Jean Martin&#10;…"></textarea>
+    <p class="prev" id="iprev"></p>
+    <div class="mbtns">
+      <button class="btn" onclick="document.getElementById('imod').classList.remove('open')">Annuler</button>
+      <button class="btn gold" onclick="importList()">Importer</button>
     </div>
   </div>
 </div>
 
-<!-- Modal contraintes -->
-<div class="overlay" id="cModal">
-  <div class="modal">
+<!-- Contraintes modal -->
+<div class="ov" id="cmod">
+  <div class="mo">
     <h3>Contraintes de placement</h3>
-    <p>Ces personnes ne seront pas assises à la même table. Leurs sièges apparaissent en rouge si elles se retrouvent ensemble.</p>
-    <select id="cA"><option value="">Choisir une personne…</option></select>
+    <p>Ces personnes ne seront pas assises à la même table. Sièges en rouge si conflit.</p>
+    <select id="cA"><option value="">Personne A…</option></select>
     <select id="cB"><option value="">Ne pas asseoir avec…</option></select>
-    <button class="tbtn gold" style="width:100%;margin-bottom:10px" onclick="addConstraint()">Ajouter cette contrainte</button>
-    <div class="clist" id="cList"></div>
-    <div class="modal-btns">
-      <button class="tbtn" onclick="document.getElementById('cModal').classList.remove('open')">Fermer</button>
+    <button class="btn gold" style="width:100%;margin-bottom:9px" onclick="addC()">Ajouter</button>
+    <div class="cl" id="clist"></div>
+    <div class="mbtns">
+      <button class="btn" onclick="document.getElementById('cmod').classList.remove('open')">Fermer</button>
     </div>
   </div>
 </div>
 
 <script>
-// ══════════════════════════════════════════
-//  STATE
-// ══════════════════════════════════════════
-const S = { guests:[], tables:[], constraints:[], tableCount:0 };
+// ══════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════
+const S={guests:[],tables:[],constraints:[],tc:0};
 
-// Drag state — géré entièrement via mousedown/mousemove/mouseup
-// pour éviter les limitations du drag HTML5 sur les éléments imbriqués
-const DRAG = {
-  active: false,
-  type: null,       // 'pool' | 'seat'
-  gid: null,        // guest id en cours de drag
-  fromTid: null,    // table source (pour 'seat')
-  startX: 0, startY: 0,
-};
+// Drag state
+const D={on:false,type:'',gid:'',fromTid:'',sx:0,sy:0};
+const ghost=document.getElementById('ghost');
 
-const ghost = document.getElementById('ghost');
+// ══════════════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════════════
+function uid(){return Math.random().toString(36).slice(2,8)+Date.now().toString(36)}
+function gname(id){const g=S.guests.find(x=>x.id===id);return g?g.name:'?'}
+function clash(a,b){return!!S.constraints.find(c=>(c.a===a&&c.b===b)||(c.a===b&&c.b===a))}
+function sclash(gid,tid){const t=S.tables.find(x=>x.id===tid);return t?t.seats.some(s=>s!==gid&&clash(gid,s)):false}
+function nclash(){let n=0;for(const t of S.tables)for(let i=0;i<t.seats.length;i++)for(let j=i+1;j<t.seats.length;j++)if(clash(t.seats[i],t.seats[j]))n++;return n}
 
-// ══════════════════════════════════════════
-//  UTILS
-// ══════════════════════════════════════════
-function uid(){ return Math.random().toString(36).slice(2,9)+Date.now().toString(36) }
-function gfull(id){ const g=S.guests.find(x=>x.id===id); return g?g.name:'?' }
-function clash(a,b){ return !!S.constraints.find(c=>(c.a===a&&c.b===b)||(c.a===b&&c.b===a)) }
-function hasSeatClash(gid,tid){ const t=S.tables.find(x=>x.id===tid); return t?t.seats.some(s=>s!==gid&&clash(gid,s)):false }
-function countClashes(){ let n=0; for(const t of S.tables) for(let i=0;i<t.seats.length;i++) for(let j=i+1;j<t.seats.length;j++) if(clash(t.seats[i],t.seats[j]))n++; return n }
+// ══════════════════════════════════════════════
+// GEOMETRY — taille réelle de chaque table
+// ══════════════════════════════════════════════
+const SW=130, SH=24; // seat label size
 
-// ══════════════════════════════════════════
-//  GEOMETRY
-// ══════════════════════════════════════════
-function tableLayout(shape, cap){
+function layout(shape,cap){
   if(shape==='oval'){
-    const rx=cap<=8?62:78, ry=cap<=8?48:60;
-    const W=rx*2+150, H=ry*2+100;
+    // Rayon de la table
+    const rx=cap<=8?66:84, ry=cap<=8?52:66;
+    // Distance centre→siège : assez pour que les labels ne se touchent pas
+    // On calcule la distance minimale entre sièges adjacents
+    // et on ajuste le facteur dist
+    const dist=1.6;
+    const W=rx*2+SW*dist+30, H=ry*2+SH*dist+30;
     const seats=[];
     for(let i=0;i<cap;i++){
       const a=(2*Math.PI*i/cap)-Math.PI/2;
-      seats.push({ sx:W/2+rx*1.55*Math.cos(a)-60, sy:H/2+ry*1.55*Math.sin(a)-13 });
+      // Position du centre du label
+      const cx=W/2+rx*dist*Math.cos(a);
+      const cy=H/2+ry*dist*Math.sin(a);
+      seats.push({cx,cy}); // cx,cy = centre du label
     }
-    return{ W,H, bx:W/2-rx, by:H/2-ry, bw:rx*2, bh:ry*2, seats };
+    return{W:Math.round(W),H:Math.round(H),bx:Math.round(W/2-rx),by:Math.round(H/2-ry),bw:rx*2,bh:ry*2,seats};
   } else {
-    const cols=Math.ceil(cap/2), sw=124, gap=6;
-    const bw=Math.max(160,cols*(sw+gap)-gap), bh=52;
-    const W=bw+150, H=bh+110;
+    const cols=Math.ceil(cap/2);
+    const gap=8;
+    const bw=Math.max(180,cols*(SW+gap)-gap), bh=54;
+    const W=bw+SW+gap*4, H=bh+SH*2+gap*4;
     const top=Math.ceil(cap/2), bot=Math.floor(cap/2), seats=[];
-    const ts=(W-(top*(sw+gap)-gap))/2, bs=(W-(bot*(sw+gap)-gap))/2;
-    for(let i=0;i<top;i++) seats.push({ sx:ts+i*(sw+gap), sy:-4 });
-    for(let i=0;i<bot;i++) seats.push({ sx:bs+i*(sw+gap), sy:H-22 });
-    return{ W,H, bx:65, by:52, bw, bh, seats };
+    // Rangée du haut : centres à y = SH/2+gap
+    const ts=(W-(top*(SW+gap)-gap))/2+SW/2;
+    const bs=(W-(bot*(SW+gap)-gap))/2+SW/2;
+    for(let i=0;i<top;i++) seats.push({cx:ts+i*(SW+gap), cy:SH/2+gap});
+    for(let i=0;i<bot;i++) seats.push({cx:bs+i*(SW+gap), cy:H-SH/2-gap});
+    return{W:Math.round(W),H:Math.round(H),bx:Math.round((W-bw)/2),by:Math.round((H-bh)/2),bw,bh,seats};
   }
 }
 
-// ══════════════════════════════════════════
-//  TABLES
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════
+// TABLES
+// ══════════════════════════════════════════════
 function addTable(shape,cap,x,y){
-  S.tableCount++;
-  const name=shape==='rect'?`Table rect. ${S.tableCount}`:`Table ${S.tableCount}`;
-  S.tables.push({id:uid(),name,shape,cap,seats:[],x:x||80+Math.random()*600,y:y||80+Math.random()*400});
-  saveLocal(); renderAll();
+  S.tc++;
+  const name=shape==='rect'?`Rect. ${S.tc}`:`Table ${S.tc}`;
+  S.tables.push({id:uid(),name,shape,cap,seats:[],x:x??80+Math.random()*500,y:y??80+Math.random()*300});
+  save();render();
 }
-function deleteTable(id){
+function delTable(id){
   const t=S.tables.find(x=>x.id===id);
   if(!t||!confirm(`Supprimer "${t.name}" ?`))return;
-  t.seats.forEach(sid=>{ const g=S.guests.find(x=>x.id===sid); if(g)g.tableId=null; });
+  t.seats.forEach(sid=>{const g=S.guests.find(x=>x.id===sid);if(g)g.tableId=null;});
   S.tables=S.tables.filter(x=>x.id!==id);
-  saveLocal(); renderAll();
+  save();render();
 }
 
-// ══════════════════════════════════════════
-//  GUESTS
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════
+// GUESTS
+// ══════════════════════════════════════════════
 function addGuest(){
   const inp=document.getElementById('gi');
-  const name=inp.value.trim(); if(!name)return;
+  const name=inp.value.trim();if(!name)return;
   S.guests.push({id:uid(),name,tableId:null});
-  inp.value=''; inp.focus();
-  saveLocal(); renderAll();
+  inp.value='';inp.focus();save();render();
 }
-function removeGuest(id){
+function delGuest(id){
   const g=S.guests.find(x=>x.id===id);
-  if(g&&g.tableId){ const t=S.tables.find(x=>x.id===g.tableId); if(t)t.seats=t.seats.filter(s=>s!==id); }
+  if(g&&g.tableId){const t=S.tables.find(x=>x.id===g.tableId);if(t)t.seats=t.seats.filter(s=>s!==id);}
   S.guests=S.guests.filter(x=>x.id!==id);
   S.constraints=S.constraints.filter(c=>c.a!==id&&c.b!==id);
-  saveLocal(); renderAll();
+  save();render();
 }
-function placeGuest(gid,tid){
-  const g=S.guests.find(x=>x.id===gid), t=S.tables.find(x=>x.id===tid);
-  if(!g||!t)return false;
-  if(t.seats.length>=t.cap) return false;
-  if(g.tableId){ const old=S.tables.find(x=>x.id===g.tableId); if(old)old.seats=old.seats.filter(s=>s!==gid); }
+
+// Place un convive dans une table (à la fin de seats[])
+function place(gid,tid){
+  const g=S.guests.find(x=>x.id===gid),t=S.tables.find(x=>x.id===tid);
+  if(!g||!t||t.seats.length>=t.cap)return false;
+  if(g.tableId){const old=S.tables.find(x=>x.id===g.tableId);if(old)old.seats=old.seats.filter(s=>s!==gid);}
   g.tableId=tid;
   if(!t.seats.includes(gid))t.seats.push(gid);
   return true;
 }
-function removeSeat(gid,tid){
-  const t=S.tables.find(x=>x.id===tid), g=S.guests.find(x=>x.id===gid);
-  if(t)t.seats=t.seats.filter(s=>s!==gid);
-  if(g)g.tableId=null;
-  saveLocal(); renderAll();
-}
 
-// ══════════════════════════════════════════
-//  AUTO PLACE
-// ══════════════════════════════════════════
-function autoPlace(){
-  const unplaced=S.guests.filter(g=>!g.tableId);
-  if(!unplaced.length){ alert('Tous les convives sont déjà placés !'); return; }
-  for(const g of unplaced){
-    let best=null;
-    for(const t of S.tables){ if(t.seats.length<t.cap&&!t.seats.some(s=>clash(g.id,s))){ best=t; break; } }
-    if(!best) for(const t of S.tables){ if(t.seats.length<t.cap){ best=t; break; } }
-    if(best){ g.tableId=best.id; best.seats.push(g.id); }
+// Place un convive à un index précis dans seats[]
+// Si l'index est occupé, on échange
+function placeAt(gid,tid,idx){
+  const g=S.guests.find(x=>x.id===gid),t=S.tables.find(x=>x.id===tid);
+  if(!g||!t)return;
+
+  // Retirer gid de sa table actuelle
+  if(g.tableId){
+    const old=S.tables.find(x=>x.id===g.tableId);
+    if(old)old.seats=old.seats.filter(s=>s!==gid);
   }
-  saveLocal(); renderAll();
-}
+  g.tableId=null;
 
-// ══════════════════════════════════════════
-//  IMPORT / EXPORT
-// ══════════════════════════════════════════
-document.getElementById('importTxt').addEventListener('input',function(){
-  const names=this.value.split('\n').map(n=>n.trim()).filter(n=>n);
-  const newOnes=names.filter(n=>!S.guests.find(g=>g.name.toLowerCase()===n.toLowerCase()));
-  document.getElementById('importPreview').textContent=
-    names.length?`${names.length} nom(s) — ${newOnes.length} nouveau(x) à ajouter`:'';
-});
-function importList(){
-  const txt=document.getElementById('importTxt').value;
-  let added=0;
-  for(const name of txt.split('\n').map(n=>n.trim()).filter(n=>n)){
-    if(!S.guests.find(g=>g.name.toLowerCase()===name.toLowerCase())){
-      S.guests.push({id:uid(),name,tableId:null}); added++;
+  const displaced=t.seats[idx]??null; // convive actuellement à cet index
+
+  if(displaced&&displaced!==gid){
+    // Retirer le déplacé de la table
+    t.seats=t.seats.filter(s=>s!==displaced);
+    const dg=S.guests.find(x=>x.id===displaced);
+    if(dg)dg.tableId=null;
+    // Si on vient d'un siège (type seat), mettre le déplacé à l'ancienne place
+    if(D.type==='seat'&&D.fromTid){
+      const fromT=S.tables.find(x=>x.id===D.fromTid);
+      if(fromT&&fromT.seats.length<fromT.cap){
+        fromT.seats.push(displaced);
+        if(dg)dg.tableId=D.fromTid;
+      }
     }
   }
-  document.getElementById('importTxt').value='';
-  document.getElementById('importPreview').textContent='';
-  document.getElementById('importModal').classList.remove('open');
-  saveLocal(); renderAll();
-  flash(`+${added} convive(s) ajouté(s)`);
+
+  // Insérer gid à l'index exact
+  // S'assurer que seats a assez de slots
+  while(t.seats.length<=idx)t.seats.push(null);
+  // Filtrer les null sauf à l'index cible
+  t.seats=t.seats.filter((s,i)=>s!==null||i===idx);
+  t.seats[idx]=gid;
+  // Nettoyer les null
+  t.seats=t.seats.filter(s=>s!==null&&s!==undefined);
+  g.tableId=tid;
+}
+
+function freeSeat(gid,tid){
+  const t=S.tables.find(x=>x.id===tid),g=S.guests.find(x=>x.id===gid);
+  if(t)t.seats=t.seats.filter(s=>s!==gid);
+  if(g)g.tableId=null;
+  save();render();
+}
+
+// ══════════════════════════════════════════════
+// AUTO PLACE
+// ══════════════════════════════════════════════
+function autoPlace(){
+  const up=S.guests.filter(g=>!g.tableId);
+  if(!up.length){alert('Tous les convives sont déjà placés !');return;}
+  for(const g of up){
+    let best=null;
+    for(const t of S.tables){if(t.seats.length<t.cap&&!t.seats.some(s=>clash(g.id,s))){best=t;break;}}
+    if(!best)for(const t of S.tables){if(t.seats.length<t.cap){best=t;break;}}
+    if(best){g.tableId=best.id;best.seats.push(g.id);}
+  }
+  save();render();
+}
+
+// ══════════════════════════════════════════════
+// IMPORT / EXPORT
+// ══════════════════════════════════════════════
+document.getElementById('itxt').addEventListener('input',function(){
+  const names=this.value.split('\n').map(n=>n.trim()).filter(n=>n);
+  const nw=names.filter(n=>!S.guests.find(g=>g.name.toLowerCase()===n.toLowerCase()));
+  document.getElementById('iprev').textContent=names.length?`${names.length} noms — ${nw.length} nouveau(x)`:'';
+});
+function importList(){
+  let added=0;
+  for(const name of document.getElementById('itxt').value.split('\n').map(n=>n.trim()).filter(n=>n)){
+    if(!S.guests.find(g=>g.name.toLowerCase()===name.toLowerCase())){S.guests.push({id:uid(),name,tableId:null});added++;}
+  }
+  document.getElementById('itxt').value='';
+  document.getElementById('iprev').textContent='';
+  document.getElementById('imod').classList.remove('open');
+  save();render();flash(`+${added} ajouté(s)`);
 }
 function exportCSV(){
-  let csv='Table,Convive\n';
+  let csv='Table,Siège,Convive\n';
   for(const t of S.tables){
-    if(t.seats.length===0) csv+=`"${t.name}","(vide)"\n`;
-    for(const sid of t.seats) csv+=`"${t.name}","${gfull(sid)}"\n`;
+    const lay=layout(t.shape,t.cap);
+    for(let i=0;i<lay.seats.length;i++){
+      const gid=t.seats[i]??null;
+      csv+=`"${t.name}",${i+1},"${gid?gname(gid):'libre'}"\n`;
+    }
   }
-  const unplaced=S.guests.filter(g=>!g.tableId);
-  for(const g of unplaced) csv+=`"Non placé","${g.name}"\n`;
+  for(const g of S.guests.filter(g=>!g.tableId)) csv+=`"Non placé","","${g.name}"\n`;
   const a=document.createElement('a');
-  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
-  a.download='plan-de-table.csv'; a.click();
+  a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);
+  a.download='plan-de-table.csv';a.click();
 }
 
-// ══════════════════════════════════════════
-//  CONSTRAINTS
-// ══════════════════════════════════════════
-function openConstraint(){
+// ══════════════════════════════════════════════
+// CONSTRAINTS
+// ══════════════════════════════════════════════
+function openC(){
   const opts=S.guests.map(g=>`<option value="${g.id}">${g.name}</option>`).join('');
-  document.getElementById('cA').innerHTML='<option value="">Choisir…</option>'+opts;
+  document.getElementById('cA').innerHTML='<option value="">Personne A…</option>'+opts;
   document.getElementById('cB').innerHTML='<option value="">Ne pas avec…</option>'+opts;
-  renderCList();
-  document.getElementById('cModal').classList.add('open');
+  renderCList();document.getElementById('cmod').classList.add('open');
 }
-function addConstraint(){
-  const a=document.getElementById('cA').value, b=document.getElementById('cB').value;
+function addC(){
+  const a=document.getElementById('cA').value,b=document.getElementById('cB').value;
   if(!a||!b||a===b)return;
   if(S.constraints.find(c=>(c.a===a&&c.b===b)||(c.a===b&&c.b===a)))return;
-  S.constraints.push({a,b}); saveLocal(); renderCList(); renderAll();
+  S.constraints.push({a,b});save();renderCList();render();
 }
-function removeConstraint(i){ S.constraints.splice(i,1); saveLocal(); renderCList(); renderAll(); }
+function delC(i){S.constraints.splice(i,1);save();renderCList();render();}
 function renderCList(){
-  document.getElementById('cList').innerHTML=S.constraints.length===0
+  document.getElementById('clist').innerHTML=S.constraints.length===0
     ?'<p style="font-size:12px;color:var(--ink3);font-style:italic;margin:0">Aucune contrainte</p>'
-    :S.constraints.map((c,i)=>`
-      <div class="ctag">
-        <span>${gfull(c.a)} ✗ ${gfull(c.b)}</span>
-        <button onclick="removeConstraint(${i})">×</button>
-      </div>`).join('');
+    :S.constraints.map((c,i)=>`<div class="ct"><span>${gname(c.a)} ✗ ${gname(c.b)}</span><button onclick="delC(${i})">×</button></div>`).join('');
 }
 
-// ══════════════════════════════════════════
-//  RESET
-// ══════════════════════════════════════════
 function resetAll(){
-  if(!confirm('Tout réinitialiser ? Cette action est irréversible.'))return;
-  S.guests=[]; S.tables=[]; S.constraints=[]; S.tableCount=0;
-  initTables(); saveLocal(); renderAll();
+  if(!confirm('Tout réinitialiser ?'))return;
+  S.guests=[];S.tables=[];S.constraints=[];S.tc=0;
+  initTables();save();render();
 }
 
-// ══════════════════════════════════════════
-//  LOCAL STORAGE
-// ══════════════════════════════════════════
-function saveLocal(){
-  try{
-    localStorage.setItem('pdt_v4',JSON.stringify({guests:S.guests,tables:S.tables,constraints:S.constraints,tableCount:S.tableCount}));
-    flash('💾 Sauvegardé');
-  }catch(e){}
+// ══════════════════════════════════════════════
+// SAVE / LOAD
+// ══════════════════════════════════════════════
+let saveTimer=null;
+function save(){
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(()=>{
+    try{localStorage.setItem('pdt5',JSON.stringify({guests:S.guests,tables:S.tables,constraints:S.constraints,tc:S.tc}));flash('💾 Sauvegardé');}catch(e){}
+  },400);
 }
-function loadLocal(){
+function load(){
   try{
-    const raw=localStorage.getItem('pdt_v4'); if(!raw)return false;
-    const d=JSON.parse(raw);
-    S.guests=d.guests||[]; S.tables=d.tables||[]; S.constraints=d.constraints||[]; S.tableCount=d.tableCount||0;
+    const r=localStorage.getItem('pdt5');if(!r)return false;
+    const d=JSON.parse(r);S.guests=d.guests||[];S.tables=d.tables||[];S.constraints=d.constraints||[];S.tc=d.tc||0;
     return true;
   }catch(e){return false}
 }
-let flashTimer=null;
+let ft=null;
 function flash(msg){
-  const b=document.getElementById('saveBadge');
-  b.textContent=msg; b.classList.add('ok');
-  clearTimeout(flashTimer);
-  flashTimer=setTimeout(()=>{ b.textContent='💾 Sauvegarde auto'; b.classList.remove('ok'); },2000);
+  const b=document.getElementById('badge');b.textContent=msg;b.classList.add('ok');
+  clearTimeout(ft);ft=setTimeout(()=>{b.textContent='💾 Sauvegarde auto';b.classList.remove('ok');},2200);
 }
 
-// ══════════════════════════════════════════
-//  RENDER
-// ══════════════════════════════════════════
-function renderAll(){ renderPool(); renderTables(); renderStats(); }
+// ══════════════════════════════════════════════
+// RENDER
+// ══════════════════════════════════════════════
+function render(){renderPool();renderTables();renderStats();}
 
 function renderPool(){
   document.getElementById('uCnt').textContent=S.guests.filter(g=>!g.tableId).length;
-  const pool=document.getElementById('pool');
-  pool.innerHTML='';
+  const pool=document.getElementById('pool');pool.innerHTML='';
   for(const g of S.guests){
-    const chip=document.createElement('div');
-    chip.className='chip'+(g.tableId?' placed':'');
-    chip.dataset.gid=g.id;
-    chip.innerHTML=`${g.name} <span class="cx">×</span>`;
-    chip.querySelector('.cx').addEventListener('mousedown',e=>{e.stopPropagation();});
-    chip.querySelector('.cx').addEventListener('click',e=>{e.stopPropagation();removeGuest(g.id);});
+    const c=document.createElement('div');
+    c.className='chip'+(g.tableId?' placed':'');
+    c.dataset.gid=g.id;
+    const nameSpan=document.createElement('span');nameSpan.textContent=g.name;
+    const x=document.createElement('span');x.className='x';x.textContent='×';
+    x.addEventListener('click',e=>{e.stopPropagation();delGuest(g.id);});
+    x.addEventListener('mousedown',e=>e.stopPropagation());
+    c.appendChild(nameSpan);c.appendChild(x);
     if(!g.tableId){
-      chip.addEventListener('mousedown',e=>startDrag(e,'pool',g.id,null));
+      c.addEventListener('mousedown',e=>{if(e.button!==0)return;e.preventDefault();startDrag(e,'pool',g.id,'');});
     }
-    pool.appendChild(chip);
+    pool.appendChild(c);
   }
 }
 
 function renderTables(){
-  const cv=document.getElementById('canvas'); cv.innerHTML='';
+  const cv=document.getElementById('cv');cv.innerHTML='';
   for(const t of S.tables){
-    const lay=tableLayout(t.shape,t.cap);
+    const lay=layout(t.shape,t.cap);
     const grp=document.createElement('div');
-    grp.className='tg'; grp.dataset.tid=t.id;
-    grp.style.cssText=`left:${t.x}px;top:${t.y}px;width:${lay.W}px;height:${lay.H}px`;
+    grp.className='tg';grp.style.cssText=`left:${t.x}px;top:${t.y}px;width:${lay.W}px;height:${lay.H}px`;
 
-    // Supprimer
-    const del=document.createElement('button');
-    del.className='tdel'; del.innerHTML='×'; del.title='Supprimer';
+    // Bouton supprimer
+    const del=document.createElement('div');del.className='tdel';del.innerHTML='×';
     del.addEventListener('mousedown',e=>e.stopPropagation());
-    del.addEventListener('click',()=>deleteTable(t.id));
+    del.addEventListener('click',()=>delTable(t.id));
     grp.appendChild(del);
 
     // Corps table
     const body=document.createElement('div');
-    body.className=`tbody ${t.shape}`; body.dataset.tid=t.id;
+    body.className=`tb2 ${t.shape}`;
     body.style.cssText=`left:${lay.bx}px;top:${lay.by}px;width:${lay.bw}px;height:${lay.bh}px`;
+    const tn=document.createElement('div');tn.className='tn';tn.textContent=t.name;body.appendChild(tn);
+    const tc2=document.createElement('div');tc2.className='tc';tc2.textContent=`${t.seats.length}/${t.cap}`;body.appendChild(tc2);
+    const pb=document.createElement('div');pb.className='tpb';
+    const pf=document.createElement('div');pf.className='tpf'+(t.seats.length>=t.cap?' full':'');
+    pf.style.width=Math.round(t.seats.length/t.cap*100)+'%';
+    pb.appendChild(pf);body.appendChild(pb);
 
-    const lbl=document.createElement('div'); lbl.className='tname'; lbl.textContent=t.name; body.appendChild(lbl);
-    const cap=document.createElement('div'); cap.className='tcap'; cap.textContent=`${t.seats.length}/${t.cap}`; body.appendChild(cap);
-    const prog=document.createElement('div'); prog.className='tprog';
-    const fill=document.createElement('div');
-    fill.className='tprog-fill'+(t.seats.length>=t.cap?' full':'');
-    fill.style.width=Math.round(t.seats.length/t.cap*100)+'%';
-    prog.appendChild(fill); body.appendChild(prog);
-
-    // Déplacer la table (mousedown sur body uniquement)
+    // Déplacer la table
     body.addEventListener('mousedown',e=>{
-      if(e.button!==0||DRAG.active)return;
-      e.preventDefault(); e.stopPropagation();
-      let ox=t.x,oy=t.y,mx=e.clientX,my=e.clientY,moved=false;
+      if(e.button!==0||D.on)return;
+      e.preventDefault();e.stopPropagation();
+      let ox=t.x,oy=t.y,mx=e.clientX,my=e.clientY,mv=false;
       const mm=ev=>{
         const dx=ev.clientX-mx,dy=ev.clientY-my;
-        if(!moved&&Math.abs(dx)+Math.abs(dy)<4)return;
-        moved=true;
-        t.x=Math.max(0,ox+dx); t.y=Math.max(0,oy+dy);
-        grp.style.left=t.x+'px'; grp.style.top=t.y+'px';
+        if(!mv&&Math.abs(dx)+Math.abs(dy)<5)return;
+        mv=true;t.x=Math.max(0,ox+dx);t.y=Math.max(0,oy+dy);
+        grp.style.left=t.x+'px';grp.style.top=t.y+'px';
       };
-      const mu=()=>{
-        document.removeEventListener('mousemove',mm);
-        document.removeEventListener('mouseup',mu);
-        if(moved)saveLocal();
-      };
-      document.addEventListener('mousemove',mm);
-      document.addEventListener('mouseup',mu);
+      const mu=()=>{document.removeEventListener('mousemove',mm);document.removeEventListener('mouseup',mu);if(mv)save();};
+      document.addEventListener('mousemove',mm);document.addEventListener('mouseup',mu);
     });
     grp.appendChild(body);
 
-    // Sièges
-    lay.seats.forEach((s,i)=>{
-      const gid=t.seats[i]||null;
+    // ── SIÈGES ──
+    // On affiche cap sièges, chacun à sa position géométrique
+    for(let i=0;i<t.cap;i++){
+      const gid=t.seats[i]??null;
+      const s=lay.seats[i];
       const sw=document.createElement('div');
       sw.className='seat';
-      sw.style.cssText=`left:${s.sx}px;top:${s.sy}px;width:120px;height:26px`;
+      // Position : centre du siège à (s.cx, s.cy), donc top-left = (cx-SW/2, cy-SH/2)
+      sw.style.cssText=`left:${Math.round(s.cx-SW/2)}px;top:${Math.round(s.cy-SH/2)}px;width:${SW}px;height:${SH}px`;
 
       const sl=document.createElement('div');
-      const conflict=gid&&hasSeatClash(gid,t.id);
-      sl.className=`slabel${gid?' occ':'  empty'}${conflict?' conflict':''}`;
-      sl.textContent=gid?gfull(gid):'libre';
-      sl.title=gid?gfull(gid)+(conflict?' ⚠ conflit':''):'';
+      const conf=gid&&sclash(gid,t.id);
+      sl.className='sl'+(gid?' occ':'  empty')+(conf?' conflict':'');
+      sl.textContent=gid?gname(gid):'libre';
+      sl.title=gid?gname(gid)+(conf?' ⚠ conflit':''):'Glissez un convive ici';
       sl.dataset.tid=t.id;
+      sl.dataset.idx=i;
       sl.dataset.gid=gid||'';
 
       if(gid){
-        // Drag depuis un siège
         sl.addEventListener('mousedown',e=>{
-          if(e.button!==0)return;
-          e.preventDefault(); e.stopPropagation();
+          if(e.button!==0)return;e.preventDefault();e.stopPropagation();
           startDrag(e,'seat',gid,t.id);
         });
-        // Clic droit = libérer
-        sl.addEventListener('contextmenu',e=>{ e.preventDefault(); removeSeat(gid,t.id); });
+        sl.addEventListener('contextmenu',e=>{e.preventDefault();freeSeat(gid,t.id);});
       }
 
-      sw.appendChild(sl); grp.appendChild(sw);
-    });
+      // Chaque siège est une zone de drop indépendante
+      sl.addEventListener('mouseenter',()=>{if(D.on&&D.gid!==gid)sl.classList.add('dov');});
+      sl.addEventListener('mouseleave',()=>sl.classList.remove('dov'));
+
+      sw.appendChild(sl);grp.appendChild(sw);
+    }
     cv.appendChild(grp);
   }
 }
 
 function renderStats(){
-  const placed=S.guests.filter(g=>g.tableId).length;
-  const total=S.guests.length;
-  const free=S.tables.reduce((s,t)=>s+t.cap,0)-placed;
-  const conf=countClashes();
-  document.getElementById('hP').textContent=placed;
-  document.getElementById('hT').textContent=total;
-  document.getElementById('hF').textContent=free;
-  document.getElementById('tP').textContent=placed;
-  document.getElementById('tT').textContent=total;
-  document.getElementById('tF').textContent=free;
+  const pl=S.guests.filter(g=>g.tableId).length,tot=S.guests.length;
+  const fr=S.tables.reduce((s,t)=>s+t.cap,0)-pl,conf=nclash();
+  document.getElementById('hP').textContent=pl;document.getElementById('hT').textContent=tot;
+  document.getElementById('hF').textContent=fr;document.getElementById('tP').textContent=pl;
+  document.getElementById('tT').textContent=tot;document.getElementById('tF').textContent=fr;
   document.getElementById('hC').textContent=conf;
   document.getElementById('hCW').style.display=conf>0?'':'none';
-  const ca=document.getElementById('cAlert');
+  const ca=document.getElementById('calert');
   if(conf>0){ca.style.display='block';ca.textContent=`⚠ ${conf} conflit${conf>1?'s':''} — sièges en rouge`;}
   else ca.style.display='none';
 }
 
-// ══════════════════════════════════════════
-//  DRAG ENGINE (mousedown/mousemove/mouseup)
-//  Fonctionne sur tous les navigateurs
-//  sans les limitations du drag HTML5
-// ══════════════════════════════════════════
-function startDrag(e, type, gid, fromTid){
-  if(e.button!==0)return;
-  e.preventDefault();
-
-  DRAG.active=false; // devient true après quelques px de mouvement
-  DRAG.type=type;
-  DRAG.gid=gid;
-  DRAG.fromTid=fromTid;
-  DRAG.startX=e.clientX;
-  DRAG.startY=e.clientY;
-
-  ghost.textContent=gfull(gid);
-  ghost.style.left=(e.clientX+12)+'px';
+// ══════════════════════════════════════════════
+// DRAG ENGINE — mousedown/mousemove/mouseup
+// ══════════════════════════════════════════════
+function startDrag(e,type,gid,fromTid){
+  D.on=false;D.type=type;D.gid=gid;D.fromTid=fromTid;
+  D.sx=e.clientX;D.sy=e.clientY;
+  ghost.textContent=gname(gid);
+  ghost.style.left=(e.clientX+14)+'px';
   ghost.style.top=(e.clientY-10)+'px';
 
-  function onMove(ev){
-    const dx=Math.abs(ev.clientX-DRAG.startX), dy=Math.abs(ev.clientY-DRAG.startY);
-    if(!DRAG.active&&dx+dy<5)return;
-
-    if(!DRAG.active){
-      DRAG.active=true;
-      ghost.style.opacity='1';
-      // Griser l'élément source
-      if(type==='seat'){
-        const srcEl=document.querySelector(`.slabel[data-gid="${gid}"]`);
-        if(srcEl)srcEl.classList.add('lifting');
-      }
+  function move(ev){
+    const dist=Math.abs(ev.clientX-D.sx)+Math.abs(ev.clientY-D.sy);
+    if(!D.on&&dist<6)return;
+    if(!D.on){
+      D.on=true;ghost.style.opacity='1';
+      // Griser la source
+      const src=document.querySelector(`.sl[data-gid="${gid}"]`);
+      if(src)src.classList.add('lifting');
     }
-
-    ghost.style.left=(ev.clientX+12)+'px';
+    ghost.style.left=(ev.clientX+14)+'px';
     ghost.style.top=(ev.clientY-10)+'px';
-
-    // Highlight la cible sous la souris
-    clearDropTargets();
-    const el=getDropTarget(ev.clientX,ev.clientY);
-    if(el)el.classList.add(el.classList.contains('slabel')?'drop-here':'drop-target');
+    // Highlight siège sous la souris
+    document.querySelectorAll('.sl.dov').forEach(el=>el.classList.remove('dov'));
+    const el=seatUnder(ev.clientX,ev.clientY);
+    if(el&&el.dataset.gid!==gid)el.classList.add('dov');
   }
 
-  function onUp(ev){
-    document.removeEventListener('mousemove',onMove);
-    document.removeEventListener('mouseup',onUp);
+  function up(ev){
+    document.removeEventListener('mousemove',move);
+    document.removeEventListener('mouseup',up);
     ghost.style.opacity='0';
-    clearDropTargets();
+    document.querySelectorAll('.sl.dov').forEach(el=>el.classList.remove('dov'));
+    document.querySelectorAll('.sl.lifting').forEach(el=>el.classList.remove('lifting'));
 
-    // Nettoyer le lifting
-    document.querySelectorAll('.slabel.lifting').forEach(el=>el.classList.remove('lifting'));
+    if(!D.on){D.on=false;return;}
+    D.on=false;
 
-    if(!DRAG.active){ DRAG.active=false; return; }
-    DRAG.active=false;
-
-    const target=getDropTarget(ev.clientX,ev.clientY);
-    if(!target){ return; } // lâché dans le vide
+    const target=seatUnder(ev.clientX,ev.clientY);
+    if(!target)return; // lâché dans le vide
 
     const toTid=target.dataset.tid;
-    const occupantGid=target.dataset.gid||null;
-
-    if(type==='pool'){
-      // Depuis le pool vers un siège/table
-      if(occupantGid&&occupantGid!==gid){
-        // Siège occupé : libérer l'occupant avant
-        removeSeatSilent(occupantGid,toTid);
-      }
-      placeGuest(gid,toTid);
-    } else {
-      // Depuis un siège vers une cible
-      if(toTid===fromTid&&!occupantGid) return; // même table, siège vide = déjà là
-      // Retirer de la source
-      removeSeatSilent(gid,fromTid);
-      if(occupantGid&&occupantGid!==gid){
-        // Échanger : l'occupant va sur la table source si possible
-        removeSeatSilent(occupantGid,toTid);
-        placeGuest(occupantGid,fromTid);
-      }
-      placeGuest(gid,toTid);
-    }
-    saveLocal(); renderAll();
+    const idx=parseInt(target.dataset.idx);
+    placeAt(gid,toTid,idx);
+    save();render();
   }
 
-  document.addEventListener('mousemove',onMove);
-  document.addEventListener('mouseup',onUp);
+  document.addEventListener('mousemove',move);
+  document.addEventListener('mouseup',up);
 }
 
-function removeSeatSilent(gid,tid){
-  const t=S.tables.find(x=>x.id===tid), g=S.guests.find(x=>x.id===gid);
-  if(t)t.seats=t.seats.filter(s=>s!==gid);
-  if(g)g.tableId=null;
-}
-
-function clearDropTargets(){
-  document.querySelectorAll('.drop-target,.drop-here').forEach(el=>{
-    el.classList.remove('drop-target','drop-here');
-  });
-}
-
-// Trouve l'élément cible (corps de table ou étiquette de siège) sous le pointeur
-function getDropTarget(cx,cy){
-  // Chercher un slabel (siège) sous la souris
+// Trouve le label de siège sous le pointeur (ignore l'élément fantôme)
+function seatUnder(cx,cy){
+  ghost.style.display='none';
   const els=document.elementsFromPoint(cx,cy);
+  ghost.style.display='';
   for(const el of els){
-    if(el.classList.contains('slabel')&&el.dataset.tid){
-      // Ne pas déposer sur soi-même
-      if(el.dataset.gid===DRAG.gid)continue;
-      return el;
-    }
-  }
-  // Sinon chercher un tbody (corps de table)
-  for(const el of els){
-    if(el.classList.contains('tbody')&&el.dataset.tid){
-      const t=S.tables.find(x=>x.id===el.dataset.tid);
-      if(t&&t.seats.length<t.cap) return el;
-    }
+    if(el.classList.contains('sl')&&el.dataset.tid)return el;
   }
   return null;
 }
 
-// ══════════════════════════════════════════
-//  INIT
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════
+// INIT — tables disposées sans chevauchement
+// ══════════════════════════════════════════════
 function initTables(){
-  // 11 ovales de 10, disposées en grille avec assez d'espace
-  const lay0=tableLayout('oval',10);
-  const padX=30, padY=30, gapX=lay0.W+30, gapY=lay0.H+30;
+  // Calculer la taille réelle d'une ovale 10 pour l'espacement
+  const L10=layout('oval',10);
+  const L14=layout('rect',14);
+  const gapX=24, gapY=24;
   const cols=4;
+
   for(let i=0;i<11;i++){
-    S.tableCount++;
+    S.tc++;
     S.tables.push({
-      id:uid(), name:`Table ${S.tableCount}`, shape:'oval', cap:10, seats:[],
-      x: padX+(i%cols)*gapX,
-      y: padY+Math.floor(i/cols)*gapY
+      id:uid(),name:`Table ${S.tc}`,shape:'oval',cap:10,seats:[],
+      x:30+(i%cols)*(L10.W+gapX),
+      y:30+Math.floor(i/cols)*(L10.H+gapY)
     });
   }
-  // 2 rectangulaires de 14, à droite
-  const lay1=tableLayout('rect',14);
+  // Les 2 rectangulaires, à droite de la grille des ovales
+  const rx=30+cols*(L10.W+gapX)+20;
   for(let i=0;i<2;i++){
-    S.tableCount++;
+    S.tc++;
     S.tables.push({
-      id:uid(), name:`Table rect. ${S.tableCount}`, shape:'rect', cap:14, seats:[],
-      x: padX+cols*gapX+20,
-      y: padY+i*(lay1.H+30)
+      id:uid(),name:`Rect. ${S.tc}`,shape:'rect',cap:14,seats:[],
+      x:rx,
+      y:30+i*(L14.H+gapY)
     });
   }
 }
 
-if(!loadLocal()){
-  initTables();
-  saveLocal();
-}
-renderAll();
+if(!load()){initTables();save();}
+render();
 </script>
 </body>
 </html>
